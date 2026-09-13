@@ -187,7 +187,7 @@ export default async function ProjectDetail({ params }: { params: Promise<{ slug
       <nav className="border-t" style={{ borderColor: "var(--g3-rule-faint)" }}>
         <div className="mx-auto flex max-w-5xl items-stretch justify-between gap-4 px-6 py-10">
           {prev ? (
-            <Link href={`/g3-builders/projects/${prev.slug}`} className="flex-1">
+            <Link href={`/projects/${prev.slug}`} className="flex-1">
               <span className="g3-meta flex items-center gap-1">
                 <ChevronLeft className="h-3 w-3" /> Previous
               </span>
@@ -198,7 +198,7 @@ export default async function ProjectDetail({ params }: { params: Promise<{ slug
           )}
 
           {next ? (
-            <Link href={`/g3-builders/projects/${next.slug}`} className="flex-1 text-right">
+            <Link href={`/projects/${next.slug}`} className="flex-1 text-right">
               <span className="g3-meta flex items-center justify-end gap-1">
                 Next <ChevronRight className="h-3 w-3" />
               </span>

@@ -59,7 +59,7 @@ function Double({ projects, reversed }: { projects: G3Project[]; reversed?: bool
     // Render full width if only one project
     return (
       <Link
-        href={`/g3-builders/projects/${projects[0].id}`}
+        href={`/projects/${projects[0].id}`}
         className="group relative flex w-full h-[60vh] sm:h-[45vw] overflow-hidden rounded-md mt-6 sm:mt-[10vh]"
       >
         {projects[0].cover && (
@@ -85,7 +85,7 @@ function Double({ projects, reversed }: { projects: G3Project[]; reversed?: bool
       className="flex gap-4 sm:gap-6 mt-6 sm:mt-[10vh] h-[50vh] sm:h-[45vw]"
     >
       <Link
-        href={`/g3-builders/projects/${projects[0].id}`}
+        href={`/projects/${projects[0].id}`}
         ref={firstImage} 
         className="group relative block overflow-hidden rounded-md transition-all duration-[30ms] ease-linear"
         style={{ width: reversed ? "33.33%" : "66.66%" }}
@@ -106,7 +106,7 @@ function Double({ projects, reversed }: { projects: G3Project[]; reversed?: bool
       </Link>
 
       <Link
-        href={`/g3-builders/projects/${projects[1].id}`}
+        href={`/projects/${projects[1].id}`}
         ref={secondImage} 
         className="group relative block overflow-hidden rounded-md transition-all duration-[30ms] ease-linear"
         style={{ width: reversed ? "66.66%" : "33.33%" }}

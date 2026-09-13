@@ -50,10 +50,10 @@ export default function G3Footer() {
           <p className="g3-meta mb-4">Explore</p>
           <ul className="space-y-2 text-sm">
             {[
-              ["Projects", "/g3-builders/projects"],
-              ["Services", "/g3-builders/services"],
-              ["Process", "/g3-builders/process"],
-              ["About", "/g3-builders/about"],
+              ["Projects", "/projects"],
+              ["Services", "/services"],
+              ["Process", "/process"],
+              ["About", "/about"],
             ].map(([label, href]) => (
               <li key={href}>
                 <Link href={href} style={{ color: "var(--g3-ink-soft)" }}>{label}</Link>

@@ -1,8 +1,16 @@
 import type { Metadata } from "next";
-import { Inter, Outfit } from "next/font/google";
+import { Inter, Outfit, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
+import "./g3-theme.css";
+import "wanted-sans/fonts/webfonts/variable/split/WantedSansVariable.css";
+
 import { ThemeProvider } from "@/components/theme-provider";
 import GlobalLoaderProvider from "@/components/global-loader-provider";
+
+import G3Nav from "@/components/g3/G3Nav";
+import G3Footer from "@/components/g3/G3Footer";
+import StickyMobileCTA from "@/components/g3/StickyMobileCTA";
+import SmoothScroll from "@/components/g3/SmoothScroll";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -16,16 +24,48 @@ const outfit = Outfit({
   display: "swap",
 });
 
+const jetbrains = JetBrains_Mono({
+  subsets: ["latin"],
+  weight: ["400", "500", "700"],
+  variable: "--font-jetbrains-mono",
+  display: "swap",
+  fallback: ["ui-monospace", "SFMono-Regular", "monospace"],
+});
+
 export const metadata: Metadata = {
-  title: "G3 Builders & Architect",
-  description: "Exterior design consultancy, interior planning and execution delivered end to end.",
+  title: {
+    default: "G3 Builders & Architect",
+    template: "%s · G3 Builders & Architect",
+  },
+  description:
+    "Exterior design consultancy, interior planning and execution delivered end to end. Residential and commercial projects across coastal Karnataka.",
   icons: {
     icon: "/favicon.svg",
   },
+  openGraph: {
+    title: "G3 Builders & Architect",
+    description: "Exterior design consultancy, interior planning and execution delivered end to end.",
+    type: "website",
+  },
+};
+
+const LOCAL_BUSINESS = {
+  "@context": "https://schema.org",
+  "@type": "GeneralContractor",
+  name: "G3 Builders & Architect",
+  description: "Exterior design consultancy, interior planning and execution delivered end to end.",
+  address: {
+    "@type": "PostalAddress",
+    addressLocality: "Moodbidri",
+    addressRegion: "Karnataka",
+    addressCountry: "IN",
+  },
+  telephone: "+91-98800-00000",
+  email: "verspektive@gmail.com",
+  parentOrganization: { "@type": "Organization", name: "VerspeKtive" },
 };
 
 export default function RootLayout({
-
   children,
 }: Readonly<{
   children: React.ReactNode;
@@ -40,7 +80,18 @@ export default function RootLayout({
           disableTransitionOnChange={false}
         >
           <GlobalLoaderProvider>
-            {children}
+            <SmoothScroll>
+              <div className={`g3-theme g3-grain relative w-full overflow-x-clip ${jetbrains.variable}`}>
+                <script
+                  type="application/ld+json"
+                  dangerouslySetInnerHTML={{ __html: JSON.stringify(LOCAL_BUSINESS) }}
+                />
+                <G3Nav />
+                <main className="pb-20 md:pb-0">{children}</main>
+                <G3Footer />
+                <StickyMobileCTA />
+              </div>
+            </SmoothScroll>
           </GlobalLoaderProvider>
         </ThemeProvider>
       </body>

@@ -197,7 +197,7 @@ export default async function G3Home({
       <MasterSequence projects={filteredProjects}>
         <div className="text-center flex flex-col items-center">
           <span className="g3-meta mb-3 !text-white">Portfolio</span>
-          <Link href="/g3-builders/projects" className="group">
+          <Link href="/projects" className="group">
             <h1 className="g3-display-xl transition-opacity hover:opacity-70 text-white">
               Projects <sup className="text-lg opacity-50 relative -top-8 group-hover:opacity-100 transition-opacity">({allProjects.length})</sup>
             </h1>

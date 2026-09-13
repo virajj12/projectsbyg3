@@ -21,7 +21,7 @@ export default function StickyMobileCTA() {
   const pathname = usePathname();
   const { loading } = useGlobalLoader();
   
-  if (pathname === "/g3-builders/contact" || loading) return null;
+  if (pathname === "/contact" || loading) return null;
 
   const item = "flex flex-1 flex-col items-center justify-center gap-1 py-3 text-[11px] font-medium";
 
@@ -46,7 +46,7 @@ export default function StickyMobileCTA() {
         WhatsApp
       </a>
       <Link
-        href="/g3-builders/contact"
+        href="/contact"
         className={`${item} bg-black text-white dark:bg-white dark:text-black`}
       >
         <CalendarCheck className="h-5 w-5" aria-hidden="true" />

@@ -58,7 +58,7 @@ export default async function ProjectsPage({
                   ? `No ${validCategory.toLowerCase()} projects published yet.`
                   : "Projects are being added — check back shortly."}
               </p>
-              <Link href="/g3-builders" className="g3-link text-foreground transition-colors duration-300">
+              <Link href="/" className="g3-link text-foreground transition-colors duration-300">
                 Return to Home <ChevronRight aria-hidden="true" className="w-4 h-4" />
               </Link>
             </div>

@@ -111,7 +111,7 @@ export default function PinnedProjectShowcase({ projects }: { projects: G3Projec
             {projects.map((p, i) => (
               <Link
                 key={p.id}
-                href={`/g3-builders/projects/${p.slug}`}
+                href={`/projects/${p.slug}`}
                 className="group relative block w-[clamp(320px,38vw,560px)] shrink-0"
               >
                 <div
@@ -153,7 +153,7 @@ export default function PinnedProjectShowcase({ projects }: { projects: G3Projec
           </div>
 
           <div className="relative mx-auto mt-10 w-full max-w-6xl px-6">
-            <Link href="/g3-builders/projects" className="g3-link">
+            <Link href="/projects" className="g3-link">
               All projects <ChevronRight aria-hidden="true" />
             </Link>
           </div>
@@ -173,7 +173,7 @@ export default function PinnedProjectShowcase({ projects }: { projects: G3Projec
           {projects.map((p, i) => (
             <Link
               key={p.id}
-              href={`/g3-builders/projects/${p.slug}`}
+              href={`/projects/${p.slug}`}
               className="w-[80%] shrink-0 snap-center"
             >
               <div
@@ -207,7 +207,7 @@ export default function PinnedProjectShowcase({ projects }: { projects: G3Projec
         </div>
 
         <div className="mx-auto max-w-6xl px-6 pt-4">
-          <Link href="/g3-builders/projects" className="g3-link">
+          <Link href="/projects" className="g3-link">
             All projects <ChevronRight aria-hidden="true" />
           </Link>
         </div>

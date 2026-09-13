@@ -31,7 +31,7 @@ export default function ServicesBento({ services }: { services: BentoService[] }
       {services.slice(0, 5).map((s, i) => (
         <Reveal key={s.id} delay={revealDelay(i)} className={SPAN[i] || ""}>
           <Link
-            href={`/g3-builders/services#${s.slug}`}
+            href={`/services#${s.slug}`}
             className={`group flex h-full flex-col justify-between rounded-xl border p-6 transition-transform duration-500 hover:-translate-y-1 ${
               i % 2 === 0 ? "g3-wood-surface" : ""
             }`}

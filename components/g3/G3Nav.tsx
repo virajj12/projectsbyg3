@@ -111,9 +111,9 @@ export default function G3Nav() {
                 className="flex items-center gap-1 overflow-hidden whitespace-nowrap bg-white/40 dark:bg-black/40 backdrop-blur-lg border border-black/10 dark:border-white/10 shadow-inner p-1 rounded-full mr-2"
               >
                 <Link
-                  href="/g3-builders"
+                  href="/"
                   onClick={(e) => {
-                    if (pathname === "/g3-builders") {
+                    if (pathname === "/") {
                       e.preventDefault();
                       window.scrollTo({ top: 0, behavior: "smooth" });
                       setOpen(false);

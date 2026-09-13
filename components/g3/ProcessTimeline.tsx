@@ -92,7 +92,7 @@ export default function ProcessTimeline({ condensed = false }: { condensed?: boo
 
       {condensed && (
         <Reveal delay={0.2}>
-          <Link href="/g3-builders/process" className="g3-link mt-8">
+          <Link href="/process" className="g3-link mt-8">
             See the full process <ChevronRight aria-hidden="true" />
           </Link>
         </Reveal>

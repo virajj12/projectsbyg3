@@ -28,7 +28,7 @@ export default function ProjectCard({ project, priority = false }: { project: G3
   const y = useTransform(scrollYProgress, [0, 1], ["-6%", "6%"]);
 
   return (
-    <Link href={`/g3-builders/projects/${project.slug}`} className="group block">
+    <Link href={`/projects/${project.slug}`} className="group block">
       <div ref={ref} className="relative aspect-[4/5] overflow-hidden rounded-xl" style={{ background: "var(--g3-black-raised)" }}>
         {project.cover ? (
           <motion.div 
