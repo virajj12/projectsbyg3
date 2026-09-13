@@ -30,7 +30,7 @@ async function fetchFromAPI<T>(action: string, params: Record<string, string> = 
 }
 
 export async function getProjects(category?: string): Promise<G3Project[]> {
-  const params = category ? { category } : {};
+  const params: Record<string, string> = category ? { category } : {};
   const data = await fetchFromAPI<G3Project[]>("projects", params);
   return data || [];
 }
