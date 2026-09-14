@@ -9,7 +9,6 @@
  * Pages add bottom padding via .g3-has-sticky-cta so it never overlaps content.
  */
 
-import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Phone, MessageCircle, CalendarCheck } from "lucide-react";
 import { useGlobalLoader } from "@/components/global-loader-provider";
@@ -21,7 +20,7 @@ export default function StickyMobileCTA() {
   const pathname = usePathname();
   const { loading } = useGlobalLoader();
   
-  if (pathname === "/contact" || loading) return null;
+  if (pathname === "/contact" || pathname.startsWith("/projects") || loading) return null;
 
   const item = "flex flex-1 flex-col items-center justify-center gap-1 py-3 text-[11px] font-medium";
 
@@ -45,13 +44,13 @@ export default function StickyMobileCTA() {
         <MessageCircle className="h-5 w-5" aria-hidden="true" />
         WhatsApp
       </a>
-      <Link
-        href="/contact"
+      <button
+        onClick={() => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })}
         className={`${item} bg-black text-white dark:bg-white dark:text-black`}
       >
         <CalendarCheck className="h-5 w-5" aria-hidden="true" />
         Enquire
-      </Link>
+      </button>
     </div>
   );
 }

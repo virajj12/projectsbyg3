@@ -81,7 +81,7 @@ export default async function G3Home({
   searchParams: Promise<{ category?: string }>;
 }) {
   const { category } = await searchParams;
-  
+
   const [
     allProjects,
     team,
@@ -124,7 +124,7 @@ export default async function G3Home({
 
 
 
-      <MaskedSection id="services" type="shrink-reveal" className="relative w-full border-t border-[var(--g3-rule-faint)] !z-10" innerClassName="bg-[var(--g3-black)] g3-wood-surface">
+      <section id="services" className="relative w-full border-t border-[var(--g3-rule-faint)] !z-10 bg-[var(--g3-black)] g3-wood-surface">
         <div className="pb-24 pt-32 md:pt-40">
           <div className="mx-auto max-w-6xl px-6">
             <div className="g3-meta mb-3 text-[var(--g3-ink)]">
@@ -191,15 +191,15 @@ export default async function G3Home({
             })}
           </div>
         </div>
-      </MaskedSection>
+      </section>
 
       {/* MASTER SEQUENCE: PORTFOLIO -> IMMERSIVE IMAGE -> HOW IT WORKS */}
       <MasterSequence projects={filteredProjects}>
         <div className="text-center flex flex-col items-center">
-          <span className="g3-meta mb-3 !text-white">Portfolio</span>
+          {/* <span className="g3-meta mb-3 !text-white">Portfolio</span> */}
           <Link href="/projects" className="group">
             <h1 className="g3-display-xl transition-opacity hover:opacity-70 text-white">
-              Projects <sup className="text-lg opacity-50 relative -top-8 group-hover:opacity-100 transition-opacity">({allProjects.length})</sup>
+              Projects <sup className="text-lg opacity-50 relative -top-8 group-hover:opacity-100 transition-opacity">( {allProjects.length} )</sup>
             </h1>
           </Link>
         </div>
@@ -225,7 +225,7 @@ export default async function G3Home({
       </section>
 
       {/* ABOUT SECTION */}
-      <MaskedSection id="about" type="none" className="border-t border-[var(--g3-rule-faint)] !z-40" innerClassName="g3-wood-surface flex flex-col justify-center">
+      <section id="about" className="border-t border-[var(--g3-rule-faint)] !z-40 g3-wood-surface flex flex-col justify-center">
         <div className="py-20 text-center">
           <div className="mx-auto max-w-6xl px-6">
             <Reveal>
@@ -239,11 +239,11 @@ export default async function G3Home({
             </Reveal>
           </div>
 
-            {stats.projects > 0 && (
-              <section
-                className="g3-wood-surface mt-20 border-y"
-                style={{ borderColor: "var(--g3-rule-faint)" }}
-              >
+          {stats.projects > 0 && (
+            <section
+              className="g3-wood-surface mt-20 border-y"
+              style={{ borderColor: "var(--g3-rule-faint)" }}
+            >
               <div className="mx-auto grid max-w-6xl grid-cols-2 gap-8 px-6 py-14 md:grid-cols-4">
                 {[
                   [stats.projects, "Projects delivered"],
@@ -340,7 +340,7 @@ export default async function G3Home({
             </section>
           )}
         </div>
-      </MaskedSection>
+      </section>
 
       {/* CONTACT SECTION */}
       <section id="contact" className="relative w-full z-40 bg-[var(--g3-black)] border-t border-[var(--g3-rule-faint)]">

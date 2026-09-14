@@ -84,6 +84,7 @@ export default function G3Nav() {
       setOpen(false);
     }
   };
+  if (pathname.startsWith("/projects")) return null;
 
   return (
     <>
@@ -228,8 +229,8 @@ export default function G3Nav() {
                       fontFamily: "var(--g3-font-display)",
                       color:
                         activeHash === l.href
-                          ? "var(--g3-brass-light)"
-                          : "var(--g3-ink)",
+                          ? "var(--g3-ink)"
+                          : "var(--g3-ink-faint)",
                     }}
                   >
                     {l.label}

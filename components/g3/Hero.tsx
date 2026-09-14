@@ -76,7 +76,7 @@ export default function Hero({
       />
 
       {/* Fixed Navbar Area - Persists across the whole page */}
-      <div className="fixed top-0 left-0 right-0 p-6 md:p-8 flex justify-between items-start z-[100] pointer-events-none">
+      <div className="fixed top-0 left-0 right-0 p-6 md:p-8 flex justify-between items-center z-[41] pointer-events-none">
         {/* Animated Logo */}
         <motion.div
           className="relative pointer-events-auto origin-top-left"

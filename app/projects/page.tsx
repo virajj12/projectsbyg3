@@ -2,12 +2,13 @@ export const runtime = 'edge';
 
 import { Suspense } from "react";
 import Link from "next/link";
-import { ChevronRight } from "lucide-react";
+import { ChevronRight, ChevronLeft } from "lucide-react";
 import { getProjects, G3_CATEGORIES } from "@/lib/g3-data";
 import CategoryFilter from "@/components/g3/CategoryFilter";
 import ProjectCard from "@/components/g3/ProjectCard";
 import { Reveal, RevealImage } from "@/components/g3/Reveal";
 import { revealDelay } from "@/components/g3/motion";
+import { AnimatedThemeToggler } from "@/components/ui/animated-theme-toggler";
 import MouseScaleGallery from "@/components/g3/MouseScaleGallery";
 
 export default async function ProjectsPage({
@@ -26,7 +27,20 @@ export default async function ProjectsPage({
   for (const c of dynamicCategories) counts[c] = allProjects.filter((p) => p.category === c).length;
 
   return (
-    <div className="bg-background min-h-screen pt-32 pb-24 transition-colors duration-300">
+    <div className="bg-background min-h-screen pt-32 pb-24 transition-colors duration-300 relative">
+      <div className="fixed top-0 left-0 right-0 p-6 md:p-8 flex justify-between items-center z-50 pointer-events-none">
+        <Link 
+          href="/" 
+          className="pointer-events-auto mix-blend-difference text-white hover:opacity-70 transition-opacity flex items-center gap-2"
+          aria-label="Back to Home"
+        >
+          <ChevronLeft className="w-8 h-8 md:w-10 md:h-10" />
+        </Link>
+        <div className="pointer-events-auto bg-black/5 dark:bg-white/5 backdrop-blur-md rounded-full border border-black/10 dark:border-white/10 text-[var(--g3-ink)]">
+          <AnimatedThemeToggler />
+        </div>
+      </div>
+
       <div className="mx-auto max-w-7xl px-6">
         
         {/* HEADER */}
