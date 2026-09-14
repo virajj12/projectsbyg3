@@ -9,7 +9,9 @@ import ProjectCard from "@/components/g3/ProjectCard";
 import { Reveal, RevealImage } from "@/components/g3/Reveal";
 import { revealDelay } from "@/components/g3/motion";
 import { AnimatedThemeToggler } from "@/components/ui/animated-theme-toggler";
-import MouseScaleGallery from "@/components/g3/MouseScaleGallery";
+import dynamic from 'next/dynamic';
+
+const MouseScaleGallery = dynamic(() => import("@/components/g3/MouseScaleGallery"));
 
 export default async function ProjectsPage({
   searchParams,
@@ -31,7 +33,7 @@ export default async function ProjectsPage({
       <div className="fixed top-0 left-0 right-0 p-6 md:p-8 flex justify-between items-center z-50 pointer-events-none">
         <Link 
           href="/" 
-          className="pointer-events-auto mix-blend-difference text-white hover:opacity-70 transition-opacity flex items-center gap-2"
+          className="pointer-events-auto text-[var(--g3-ink)] hover:opacity-70 transition-opacity flex items-center gap-2"
           aria-label="Back to Home"
         >
           <ChevronLeft className="w-8 h-8 md:w-10 md:h-10" />

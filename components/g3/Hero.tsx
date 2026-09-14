@@ -86,6 +86,7 @@ export default function Hero({
             src="/G3 B & A LOGO BLACK.png"
             alt="G3 Builders Logo"
             fill
+            sizes="(max-width: 768px) 100vw, 33vw"
             className="object-contain dark:hidden"
             priority
           />
@@ -93,6 +94,7 @@ export default function Hero({
             src="/G3 B & A LOGO WHITE.png"
             alt="G3 Builders Logo"
             fill
+            sizes="(max-width: 768px) 100vw, 33vw"
             className="object-contain hidden dark:block"
             priority
           />

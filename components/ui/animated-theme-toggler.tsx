@@ -73,7 +73,7 @@ export const AnimatedThemeToggler = ({ className }: AnimatedThemeTogglerProps) =
         )}
         type="button"
       >
-        <span className="w-[16px] h-[16px] mix-blend-difference text-white" />
+        <span className="w-[16px] h-[16px] text-current" />
       </button>
     )
   }
@@ -97,7 +97,7 @@ export const AnimatedThemeToggler = ({ className }: AnimatedThemeTogglerProps) =
             animate={{ opacity: 1, scale: 1, rotate: 0 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.33 }}
-            className="mix-blend-difference text-white"
+            className="text-current"
           >
             <Sun className="w-[16px] h-[16px]" />
           </motion.span>
@@ -108,7 +108,7 @@ export const AnimatedThemeToggler = ({ className }: AnimatedThemeTogglerProps) =
             animate={{ opacity: 1, scale: 1, rotate: 0 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.33 }}
-            className="mix-blend-difference text-white"
+            className="text-current"
           >
             <Moon className="w-[16px] h-[16px]" />
           </motion.span>

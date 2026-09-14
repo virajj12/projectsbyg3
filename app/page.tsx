@@ -17,9 +17,11 @@ import {
 import Hero from "@/components/g3/Hero";
 import ProjectCard from "@/components/g3/ProjectCard";
 import CategoryFilter from "@/components/g3/CategoryFilter";
-import MasterSequence from "@/components/g3/MasterSequence";
-import InquiryForm from "@/components/g3/InquiryForm";
-import TestimonialCarousel from "@/components/g3/TestimonialCarousel";
+import dynamic from 'next/dynamic';
+
+const MasterSequence = dynamic(() => import("@/components/g3/MasterSequence"));
+const TestimonialCarousel = dynamic(() => import("@/components/g3/TestimonialCarousel"));
+const InquiryForm = dynamic(() => import("@/components/g3/InquiryForm"));
 import { Reveal, RevealLeft, RevealImage } from "@/components/g3/Reveal";
 import { revealDelay } from "@/components/g3/motion";
 import { MaskedSection } from "@/components/g3/MaskedSection";

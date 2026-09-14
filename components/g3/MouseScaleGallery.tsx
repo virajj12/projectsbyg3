@@ -66,6 +66,7 @@ function Double({ projects, reversed }: { projects: G3Project[]; reversed?: bool
           <Image
             src={projects[0].cover.url}
             fill
+            sizes="(max-width: 640px) 100vw, 50vw"
             alt={projects[0].cover.alt || projects[0].title}
             className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
           />
@@ -94,6 +95,7 @@ function Double({ projects, reversed }: { projects: G3Project[]; reversed?: bool
           <Image
             src={projects[0].cover.url}
             fill
+            sizes="(max-width: 640px) 100vw, 50vw"
             alt={projects[0].cover.alt || projects[0].title}
             className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
           />
@@ -115,6 +117,7 @@ function Double({ projects, reversed }: { projects: G3Project[]; reversed?: bool
           <Image
             src={projects[1].cover.url}
             fill
+            sizes="(max-width: 640px) 100vw, 50vw"
             alt={projects[1].cover.alt || projects[1].title}
             className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
           />

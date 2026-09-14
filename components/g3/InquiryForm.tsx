@@ -157,7 +157,7 @@ export default function InquiryForm() {
           type="submit"
           disabled={!ready || status === "sending"}
           className="flex w-full items-center justify-center gap-2 rounded-lg px-6 py-4 text-base font-semibold transition-opacity disabled:opacity-40 sm:w-auto"
-          style={{ background: "var(--g3-brass)", color: "#0a0908" }}
+          style={{ background: "var(--g3-ink)", color: "var(--g3-black)" }}
         >
           {status === "sending" && <Loader2 className="h-4 w-4 animate-spin" />}
           Book a consultation

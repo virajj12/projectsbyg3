@@ -1,10 +1,10 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
-import { Menu, X, ChevronUp } from "lucide-react";
+import { Menu, X, ChevronUp, ChevronDown } from "lucide-react";
 import GlassSurface from "@/components/ui/GlassSurface";
 
 const LINKS = [
@@ -20,6 +20,8 @@ export default function G3Nav() {
   const reduced = useReducedMotion();
   const [open, setOpen] = useState(false);
   const [activeHash, setActiveHash] = useState<string>("");
+  const isScrollingRef = useRef(false);
+  const scrollTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
     document.body.style.overflow = open ? "hidden" : "";
@@ -33,7 +35,9 @@ export default function G3Nav() {
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            setActiveHash(`#${entry.target.id}`);
+            if (!isScrollingRef.current) {
+              setActiveHash(`#${entry.target.id}`);
+            }
           }
         });
       },
@@ -56,7 +60,7 @@ export default function G3Nav() {
     const t2 = setTimeout(observeLinks, 2000);
 
     const handleScroll = () => {
-      if (window.scrollY < 100) {
+      if (window.scrollY < 100 && !isScrollingRef.current) {
         setActiveHash("");
       }
     };
@@ -77,6 +81,12 @@ export default function G3Nav() {
       const id = href.substring(1);
       const element = document.getElementById(id);
       if (element) {
+        setActiveHash(href);
+        isScrollingRef.current = true;
+        if (scrollTimeoutRef.current) clearTimeout(scrollTimeoutRef.current);
+        scrollTimeoutRef.current = setTimeout(() => {
+          isScrollingRef.current = false;
+        }, 1000);
         element.scrollIntoView({ behavior: "smooth" });
         setOpen(false); // Close mobile menu if open
       }
@@ -112,19 +122,37 @@ export default function G3Nav() {
                 className="flex items-center gap-1 overflow-hidden whitespace-nowrap bg-white/40 dark:bg-black/40 backdrop-blur-lg border border-black/10 dark:border-white/10 shadow-inner p-1 rounded-full mr-2"
               >
                 <Link
-                  href="/"
+                  href={activeHash === "" ? "#services" : "/"}
                   onClick={(e) => {
                     if (pathname === "/") {
                       e.preventDefault();
-                      window.scrollTo({ top: 0, behavior: "smooth" });
-                      setOpen(false);
-                      setActiveHash("");
+                      if (activeHash === "") {
+                        const element = document.getElementById("services");
+                        if (element) {
+                          setActiveHash("#services");
+                          isScrollingRef.current = true;
+                          if (scrollTimeoutRef.current) clearTimeout(scrollTimeoutRef.current);
+                          scrollTimeoutRef.current = setTimeout(() => {
+                            isScrollingRef.current = false;
+                          }, 1000);
+                          element.scrollIntoView({ behavior: "smooth" });
+                        }
+                      } else {
+                        setActiveHash("");
+                        isScrollingRef.current = true;
+                        if (scrollTimeoutRef.current) clearTimeout(scrollTimeoutRef.current);
+                        scrollTimeoutRef.current = setTimeout(() => {
+                          isScrollingRef.current = false;
+                        }, 1000);
+                        window.scrollTo({ top: 0, behavior: "smooth" });
+                        setOpen(false);
+                      }
                     }
                   }}
                   className={`relative z-10 flex items-center justify-center h-9 w-9 shrink-0 rounded-full transition-colors duration-300 ${
                     activeHash === "" ? "text-white dark:text-black" : "text-zinc-600 hover:text-black dark:text-zinc-400 dark:hover:text-white"
                   }`}
-                  aria-label="Back to top"
+                  aria-label={activeHash === "" ? "Scroll down" : "Back to top"}
                 >
                   {activeHash === "" && (
                     <motion.div
@@ -133,7 +161,11 @@ export default function G3Nav() {
                       transition={{ type: "spring", stiffness: 500, damping: 30 }}
                     />
                   )}
-                  <ChevronUp className="h-5 w-5" />
+                  {activeHash === "" ? (
+                    <ChevronDown className="h-5 w-5" />
+                  ) : (
+                    <ChevronUp className="h-5 w-5" />
+                  )}
                 </Link>
 
                 <nav className="hidden items-center md:flex">

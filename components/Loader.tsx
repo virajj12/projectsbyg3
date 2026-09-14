@@ -64,6 +64,7 @@ export default function Loader({ onComplete }: { onComplete: () => void }) {
               src="/G3 White & Grey-01-01.png"
               alt="G3 Builders Logo"
               fill
+              sizes="(max-width: 768px) 100vw, 33vw"
               className="object-contain"
               priority
             />
