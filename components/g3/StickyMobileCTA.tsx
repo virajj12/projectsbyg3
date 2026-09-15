@@ -10,11 +10,8 @@
  */
 
 import { usePathname } from "next/navigation";
-import { Phone, MessageCircle, CalendarCheck } from "lucide-react";
+import { CalendarCheck } from "lucide-react";
 import { useGlobalLoader } from "@/components/global-loader-provider";
-
-const PHONE = "+919880000000";
-const WHATSAPP = "919880000000";
 
 export default function StickyMobileCTA() {
   const pathname = usePathname();
@@ -26,27 +23,19 @@ export default function StickyMobileCTA() {
 
   return (
     <div
-      className="fixed inset-x-0 bottom-0 z-[41] flex border-t md:hidden bg-white/80 dark:bg-black/80 backdrop-blur-md border-black/10 dark:border-white/10"
+      className="fixed inset-x-0 bottom-0 z-[41] flex border-t md:hidden backdrop-blur-md"
       style={{
+        backgroundColor: "color-mix(in srgb, var(--g3-black) 80%, transparent)",
+        borderColor: "var(--g3-rule)",
         paddingBottom: "env(safe-area-inset-bottom)",
       }}
     >
-      <a href={`tel:${PHONE}`} className={`${item} text-muted-foreground hover:text-foreground transition-colors duration-300`}>
-        <Phone className="h-5 w-5" aria-hidden="true" />
-        Call
-      </a>
-      <a
-        href={`https://wa.me/${WHATSAPP}`}
-        target="_blank"
-        rel="noopener noreferrer"
-        className={`${item} text-muted-foreground hover:text-foreground transition-colors duration-300`}
-      >
-        <MessageCircle className="h-5 w-5" aria-hidden="true" />
-        WhatsApp
-      </a>
+
+
       <button
         onClick={() => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })}
-        className={`${item} bg-black text-white dark:bg-white dark:text-black`}
+        className={`${item} transition-colors hover:opacity-70`}
+        style={{ color: "var(--g3-ink)" }}
       >
         <CalendarCheck className="h-5 w-5" aria-hidden="true" />
         Enquire

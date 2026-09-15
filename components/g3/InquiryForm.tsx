@@ -5,7 +5,7 @@
  *
  * Mobile keyboard handling per spec 6: type="tel" with inputMode="tel",
  * type="email" with inputMode="email" and autocomplete hints, so phones raise
- * the right keyboard and can autofill. Only name, phone and email are
+ * the right keyboard and can autofill. Only name and email are
  * required — everything else is optional to keep the barrier low.
  *
  * Inputs are 16px on purpose: iOS Safari zooms the viewport on focus for
@@ -22,7 +22,7 @@ type Status = "idle" | "sending" | "sent" | "error";
 
 export default function InquiryForm() {
   const [form, setForm] = useState({
-    name: "", phone: "", email: "",
+    name: "", email: "",
     projectType: "", budgetRange: "", location: "", message: "",
   });
   const [status, setStatus] = useState<Status>("idle");
@@ -32,7 +32,7 @@ export default function InquiryForm() {
     setForm((f) => ({ ...f, [key]: value }));
   }
 
-  const ready = form.name.trim() && form.phone.trim() && form.email.trim();
+  const ready = form.name.trim() && form.email.trim();
 
   async function submit(e: React.FormEvent) {
     e.preventDefault();
@@ -45,7 +45,6 @@ export default function InquiryForm() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           name: form.name.trim(),
-          phone: form.phone.trim(),
           email: form.email.trim(),
           projectType: form.projectType || undefined,
           budgetRange: form.budgetRange || undefined,
@@ -95,15 +94,6 @@ export default function InquiryForm() {
         <input
           id="g3-name" required value={form.name} onChange={(e) => set("name", e.target.value)}
           autoComplete="name" className={field} style={style}
-        />
-      </div>
-
-      <div>
-        <label htmlFor="g3-phone" className={labelCls} style={labelStyle}>Phone *</label>
-        <input
-          id="g3-phone" required type="tel" inputMode="tel" autoComplete="tel"
-          value={form.phone} onChange={(e) => set("phone", e.target.value)}
-          className={field} style={style}
         />
       </div>
 

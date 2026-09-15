@@ -65,7 +65,7 @@ function ParallaxImage({ src, pos, progress, index, mouseX }: { src: string; pos
         x,
       }}
     >
-      <Image src={src} alt="Architecture portfolio" fill className="object-cover" />
+      <Image src={src} alt="Architecture portfolio" fill sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" className="object-cover" />
     </motion.div>
   );
 }
@@ -261,6 +261,7 @@ export default function MasterSequence({ projects, children }: MasterSequencePro
               src="https://images.unsplash.com/photo-1600607686527-6fb886090705?auto=format&fit=crop&w=2000&q=80"
               alt="Immersive architectural transition"
               fill
+              sizes="100vw"
               className="object-cover"
               priority
             />

@@ -10,7 +10,7 @@
 import Link from "next/link";
 import { useReducedMotion } from "framer-motion";
 
-const TAGLINE = "G3 Builders & Architect — Exterior Consultancy · Interior Design · Execution — ";
+const TAGLINE = "G3 Builders & Architects — Exterior Consultancy · Interior Design · Execution — ";
 
 export default function G3Footer() {
   const reduced = useReducedMotion();
@@ -39,7 +39,7 @@ export default function G3Footer() {
       <div className="mx-auto grid max-w-6xl gap-10 px-6 py-14 sm:grid-cols-2 lg:grid-cols-4">
         <div className="sm:col-span-2">
           <p className="g3-display-md mb-3" style={{ color: "var(--g3-ink)" }}>
-            G3 Builders<br />&amp; Architect
+            G3 Builders<br />&amp; Architects
           </p>
           <p className="g3-body max-w-sm">
             Exterior design consultancy, interior planning and execution delivered end to end.
@@ -65,7 +65,6 @@ export default function G3Footer() {
         <div>
           <p className="g3-meta mb-4">Contact</p>
           <ul className="space-y-2 text-sm" style={{ color: "var(--g3-ink-soft)" }}>
-            <li><a href="tel:+919880000000">+91 98800 00000</a></li>
             <li><a href="mailto:verspektive@gmail.com">verspektive@gmail.com</a></li>
             <li>Moodbidri, Karnataka</li>
           </ul>
@@ -73,7 +72,7 @@ export default function G3Footer() {
       </div>
 
       <div className="border-t px-6 py-6 text-center text-xs" style={{ borderColor: "var(--g3-rule-faint)", color: "var(--g3-ink-faint)" }}>
-        © {new Date().getFullYear()} G3 Builders &amp; Architecture · A VerspeKtive company
+        © {new Date().getFullYear()} G3 Builders &amp; Architects · A VerspeKtive company
       </div>
 
       <style jsx>{`

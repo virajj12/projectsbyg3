@@ -4,7 +4,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { Suspense } from "react";
-import { ChevronRight, Phone, MessageCircle, Mail, MapPin, Clock } from "lucide-react";
+import { ChevronRight, Mail, MapPin, Clock } from "lucide-react";
 import {
   getProjects,
   getServices,
@@ -64,9 +64,6 @@ const FALLBACK_SERVICES = [
   }
 ];
 
-const PHONE_DISPLAY = "+91 98800 00000";
-const PHONE_TEL = "+919880000000";
-const WHATSAPP = "919880000000";
 const EMAIL = "verspektive@gmail.com";
 
 function relatedCategory(title: string): string | null {
@@ -118,7 +115,7 @@ export default async function G3Home({
 
   const story =
     aboutPage.content.story ||
-    "G3 Builders & Architect works across coastal Karnataka on homes, commercial buildings and interiors. We are deliberately small: the people you meet at the first conversation are the same people on site when the concrete is poured.";
+    "G3 Builders & Architects works across coastal Karnataka on homes, commercial buildings and interiors. We are deliberately small: the people you meet at the first conversation are the same people on site when the concrete is poured.";
 
   return (
     <>
@@ -371,24 +368,8 @@ export default async function G3Home({
                   <div>
                     <p className="g3-meta mb-4">Rather talk now?</p>
                     <div className="space-y-3">
-                      <a
-                        href={`tel:${PHONE_TEL}`}
-                        className="flex items-center gap-3 rounded-lg border px-4 py-3.5 transition-colors"
-                        style={{ borderColor: "var(--g3-rule-faint)", color: "var(--g3-ink)" }}
-                      >
-                        <Phone className="h-4 w-4 shrink-0" style={{ color: "var(--g3-ink)" }} aria-hidden="true" />
-                        {PHONE_DISPLAY}
-                      </a>
-                      <a
-                        href={`https://wa.me/${WHATSAPP}`}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="flex items-center gap-3 rounded-lg border px-4 py-3.5 transition-colors"
-                        style={{ borderColor: "var(--g3-rule-faint)", color: "var(--g3-ink)" }}
-                      >
-                        <MessageCircle className="h-4 w-4 shrink-0" style={{ color: "var(--g3-ink)" }} aria-hidden="true" />
-                        WhatsApp us
-                      </a>
+
+
                       <a
                         href={`mailto:${EMAIL}`}
                         className="flex items-center gap-3 rounded-lg border px-4 py-3.5 transition-colors"

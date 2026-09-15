@@ -34,8 +34,8 @@ const jetbrains = JetBrains_Mono({
 
 export const metadata: Metadata = {
   title: {
-    default: "G3 Builders & Architect",
-    template: "%s · G3 Builders & Architect",
+    default: "G3 Builders & Architects",
+    template: "%s · G3 Builders & Architects",
   },
   description:
     "Exterior design consultancy, interior planning and execution delivered end to end. Residential and commercial projects across coastal Karnataka.",
@@ -43,7 +43,7 @@ export const metadata: Metadata = {
     icon: "/favicon.svg",
   },
   openGraph: {
-    title: "G3 Builders & Architect",
+    title: "G3 Builders & Architects",
     description: "Exterior design consultancy, interior planning and execution delivered end to end.",
     type: "website",
   },
@@ -52,7 +52,7 @@ export const metadata: Metadata = {
 const LOCAL_BUSINESS = {
   "@context": "https://schema.org",
   "@type": "GeneralContractor",
-  name: "G3 Builders & Architect",
+  name: "G3 Builders & Architects",
   description: "Exterior design consultancy, interior planning and execution delivered end to end.",
   address: {
     "@type": "PostalAddress",
@@ -60,7 +60,6 @@ const LOCAL_BUSINESS = {
     addressRegion: "Karnataka",
     addressCountry: "IN",
   },
-  telephone: "+91-98800-00000",
   email: "verspektive@gmail.com",
   parentOrganization: { "@type": "Organization", name: "VerspeKtive" },
 };
