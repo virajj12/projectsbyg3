@@ -150,10 +150,10 @@ export default function MasterSequence({ projects, children }: MasterSequencePro
 
   // --- PHASE 2: IMMERSIVE IMAGE TAKEOVER ---
   // The image starts as a "card" at the center but end, and is part of the parallax.
-  const imgWidth = useTransform(scrollYProgress, [0.2, 0.35], ["40vw", "100vw"]);
-  const imgHeight = useTransform(scrollYProgress, [0.2, 0.35], ["30vh", "100vh"]);
-  const imgTop = useTransform(scrollYProgress, [0.2, 0.35], ["70vh", "0vh"]);
-  const imgLeft = useTransform(scrollYProgress, [0.2, 0.35], ["30vw", "0vw"]);
+  const imgWidth = useTransform(scrollYProgress, [0.2, 0.35], ["28vw", "100vw"]);
+  const imgHeight = useTransform(scrollYProgress, [0.2, 0.35], ["22vh", "100vh"]);
+  const imgTop = useTransform(scrollYProgress, [0.2, 0.35], ["75vh", "0vh"]);
+  const imgLeft = useTransform(scrollYProgress, [0.2, 0.35], ["36vw", "0vw"]);
   const imgRadius = useTransform(scrollYProgress, [0.2, 0.35], ["12px", "0px"]);
   const imgScale = useTransform(scrollYProgress, [0.2, 0.6], [1, 1.05]);
   const imgY = useTransform(scrollYProgress, [0, 0.2, 0.35], ["30vh", "0vh", "0vh"]);
@@ -231,13 +231,13 @@ export default function MasterSequence({ projects, children }: MasterSequencePro
           /* DESKTOP (>= 768px) */
           @media (min-width: 768px) {
             .ms-img-0 { top: 5%; left: 0%; width: 25vw; height: 45vh; }
-            .ms-img-1 { top: 40%; left: 15%; width: 15vw; height: 20vh; }
+            .ms-img-1 { top: 40%; left: 10%; width: 15vw; height: 20vh; }
             .ms-img-2 { top: 60%; left: 0%; width: 20vw; height: 35vh; }
-            .ms-img-3 { top: 0%; left: 45%; width: 18vw; height: 40vh; }
+            .ms-img-3 { top: 0%; left: 35%; width: 18vw; height: 40vh; }
             .ms-img-4 { top: 5%; right: 10%; width: 22vw; height: 20vh; }
             .ms-img-5 { top: 45%; right: 15%; width: 12vw; height: 18vh; }
             .ms-img-6 { top: 50%; right: 0%; width: 25vw; height: 50vh; }
-            .ms-img-7 { top: 70%; left: 40%; width: 20vw; height: 25vh; }
+            .ms-img-7 { top: 70%; left: 28%; width: 20vw; height: 25vh; }
 
             .stage-slider { --stage-offset: 15vw; --stage-width: 50vw; }
             .stage-title-width { width: 50vw; }
