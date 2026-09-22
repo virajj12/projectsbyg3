@@ -1,0 +1,22 @@
+{
+  "home": {
+    "content": {
+      "heroHeadline": "Interior Execution. Exterior Consultancy.",
+      "heroTagline": "Expert exterior design planning, and end-to-end interior design and making delivered by our dedicated team."
+    },
+    "heroImage": {
+      "url": "/images/pages/home-hero.jpg",
+      "alt": "Hero background",
+      "width": 1920,
+      "height": 1080,
+      "type": "image/jpeg",
+      "thumbnailUrl": null
+    }
+  },
+  "about": {
+    "content": {
+      "story": "G3 Builders & Architects works across coastal Karnataka on homes, commercial buildings and interiors. We are deliberately small: the people you meet at the first conversation are the same people on site when the concrete is poured."
+    },
+    "heroImage": null
+  }
+}

@@ -1,0 +1,20 @@
+[
+  {
+    "id": 1,
+    "title": "Interior Design & Execution",
+    "slug": "interior-design-execution",
+    "summary": "End-to-end interiors, resolved to the last switch plate and built by our dedicated team.",
+    "body": "Comprehensive interior planning, joinery detailing, and material selection, fully executed and delivered by our own dedicated craftsmen.",
+    "iconUrl": null,
+    "iconAlt": null
+  },
+  {
+    "id": 2,
+    "title": "Exterior Design Consultancy",
+    "slug": "exterior-design-consultancy",
+    "summary": "Architectural and exterior planning and design consultancy.",
+    "body": "Site study, massing, and the full architectural drawing set—providing expert design and planning while you handle the construction.",
+    "iconUrl": null,
+    "iconAlt": null
+  }
+]

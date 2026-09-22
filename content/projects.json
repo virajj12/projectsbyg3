@@ -1,0 +1,35 @@
+[
+  {
+    "id": 1,
+    "title": "Seaside Villa",
+    "slug": "seaside-villa",
+    "category": "Residential",
+    "location": "Mangaluru, Karnataka",
+    "sqft": 4500,
+    "year": 2023,
+    "status": "completed",
+    "clientName": null,
+    "summary": "A modern coastal residence designed for seamless indoor-outdoor living.",
+    "body": "Located along the coast of Mangaluru, this 4500 sqft residence explores the relationship between heavy laterite walls and light, open living spaces. The design prioritizes cross-ventilation and deep overhangs to handle the heavy monsoon.",
+    "featured": true,
+    "cover": {
+      "url": "/images/projects/seaside-villa-cover.jpg",
+      "alt": "Seaside Villa exterior",
+      "width": 2000,
+      "height": 1333,
+      "type": "image/jpeg",
+      "thumbnailUrl": null
+    },
+    "gallery": [
+      {
+        "url": "/images/projects/seaside-villa-gallery-1.jpg",
+        "alt": "Living room interior",
+        "width": 2000,
+        "height": 1333,
+        "type": "image/jpeg",
+        "thumbnailUrl": null,
+        "caption": "The main living area"
+      }
+    ]
+  }
+]

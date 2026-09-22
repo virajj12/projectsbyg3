@@ -1,13 +1,5 @@
 /**
  * Client-safe G3 constants and types.
- *
- * Deliberately separate from g3-data.ts: that module imports the Cloudflare
- * request context and Drizzle, which drag in `server-only`. A client component
- * importing so much as a category list from there fails the build with
- * "'server-only' cannot be imported from a Client Component module".
- *
- * Anything both sides need lives here. Nothing in this file may import
- * server-side modules.
  */
 
 export const G3_CATEGORIES = ["Residential", "Commercial", "Interiors", "Concept"] as const;

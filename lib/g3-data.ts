@@ -1,38 +1,20 @@
-export const runtime = 'edge';
-
 import { G3_CATEGORIES, type G3Image, type G3Project, type G3GalleryItem } from "./g3-constants";
+
+// Import local JSON content
+import projectsData from "../content/projects.json";
+import servicesData from "../content/services.json";
+import pagesData from "../content/pages.json";
+import statsData from "../content/stats.json";
 
 export { G3_CATEGORIES };
 export type { G3Image, G3Project, G3GalleryItem };
 
-// Ensure we don't throw if the env isn't strictly loaded
-const API_URL = process.env.NEXT_PUBLIC_API_URL || "https://verspektive.in";
-
-async function fetchFromAPI<T>(action: string, params: Record<string, string> = {}): Promise<T | null> {
-  try {
-    const url = new URL(`${API_URL}/api/g3/public/data`);
-    url.searchParams.set("action", action);
-    for (const [key, value] of Object.entries(params)) {
-      url.searchParams.set(key, value);
-    }
-    
-    // next: { revalidate: 60 } caches the request for 60 seconds.
-    const res = await fetch(url.toString(), { next: { revalidate: 60 } });
-    if (!res.ok) {
-      console.error(`G3 fetch ${action} failed: ${res.status} ${res.statusText}`);
-      return null;
-    }
-    return res.json() as Promise<T>;
-  } catch (error) {
-    console.error(`G3 fetch ${action} network error:`, error);
-    return null;
-  }
-}
-
 export async function getProjects(category?: string): Promise<G3Project[]> {
-  const params: Record<string, string> = category ? { category } : {};
-  const data = await fetchFromAPI<G3Project[]>("projects", params);
-  return data || [];
+  const all = projectsData as G3Project[];
+  if (category) {
+    return all.filter(p => p.category === category);
+  }
+  return all;
 }
 
 export async function getFeaturedProjects(limit = 4): Promise<G3Project[]> {
@@ -47,31 +29,37 @@ export async function getProjectBySlug(slug: string): Promise<{
   prev: { slug: string; title: string } | null;
   next: { slug: string; title: string } | null;
 } | null> {
-  const data = await fetchFromAPI<any>("projectBySlug", { slug });
-  return data || null;
+  const all = await getProjects();
+  const index = all.findIndex((p) => p.slug === slug);
+  if (index === -1) return null;
+
+  const project = all[index];
+  
+  // Cast back to any to read the 'gallery' property we added to our JSON
+  const rawProject = projectsData.find((p) => p.slug === slug) as any;
+  const gallery: G3GalleryItem[] = rawProject?.gallery || [];
+
+  const prevProject = index > 0 ? all[index - 1] : null;
+  const nextProject = index < all.length - 1 ? all[index + 1] : null;
+
+  return {
+    project,
+    gallery,
+    prev: prevProject ? { slug: prevProject.slug, title: prevProject.title } : null,
+    next: nextProject ? { slug: nextProject.slug, title: nextProject.title } : null,
+  };
 }
 
 export async function getServices(): Promise<any[]> {
-  const data = await fetchFromAPI<any[]>("services");
-  return data || [];
-}
-
-export async function getTeam(): Promise<any[]> {
-  const data = await fetchFromAPI<any[]>("team");
-  return data || [];
-}
-
-export async function getTestimonials(): Promise<any[]> {
-  const data = await fetchFromAPI<any[]>("testimonials");
-  return data || [];
+  return servicesData;
 }
 
 export async function getPageContent(slug: string): Promise<{
   content: Record<string, string>;
   heroImage: G3Image | null;
 }> {
-  const data = await fetchFromAPI<any>("pageContent", { slug });
-  return data || { content: {}, heroImage: null };
+  const page = (pagesData as any)[slug];
+  return page || { content: {}, heroImage: null };
 }
 
 export async function getStats(): Promise<{
@@ -80,6 +68,5 @@ export async function getStats(): Promise<{
   cities: number;
   yearsActive: number;
 }> {
-  const data = await fetchFromAPI<any>("stats");
-  return data || { projects: 0, sqft: 0, cities: 0, yearsActive: 0 };
+  return statsData;
 }

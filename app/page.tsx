@@ -8,10 +8,8 @@ import { ChevronRight, Mail, MapPin, Clock } from "lucide-react";
 import {
   getProjects,
   getServices,
-  getTestimonials,
   getPageContent,
   getStats,
-  getTeam,
   G3_CATEGORIES
 } from "@/lib/g3-data";
 import Hero from "@/components/g3/Hero";
@@ -20,7 +18,6 @@ import CategoryFilter from "@/components/g3/CategoryFilter";
 import dynamic from 'next/dynamic';
 
 const MasterSequence = dynamic(() => import("@/components/g3/MasterSequence"));
-const TestimonialCarousel = dynamic(() => import("@/components/g3/TestimonialCarousel"));
 const InquiryForm = dynamic(() => import("@/components/g3/InquiryForm"));
 import { Reveal, RevealLeft, RevealImage } from "@/components/g3/Reveal";
 import { revealDelay } from "@/components/g3/motion";
@@ -83,20 +80,16 @@ export default async function G3Home({
 
   const [
     allProjects,
-    team,
     homePage,
     aboutPage,
     stats,
-    fromDbServices,
-    testimonials
+    fromDbServices
   ] = await Promise.all([
     getProjects(),
-    getTeam(),
     getPageContent("home"),
     getPageContent("about"),
     getStats(),
-    getServices(),
-    getTestimonials()
+    getServices()
   ]);
 
   const dynamicCategories = Array.from(new Set([...G3_CATEGORIES, ...allProjects.map(p => p.category)]));
@@ -243,12 +236,11 @@ export default async function G3Home({
               className="g3-wood-surface mt-20 border-y"
               style={{ borderColor: "var(--g3-rule-faint)" }}
             >
-              <div className="mx-auto grid max-w-6xl grid-cols-2 gap-8 px-6 py-14 md:grid-cols-4">
+              <div className="mx-auto grid max-w-6xl grid-cols-2 gap-8 px-6 py-14 md:grid-cols-3">
                 {[
                   [stats.projects, "Projects delivered"],
                   [stats.yearsActive, "Years active"],
                   [stats.cities, "Locations served"],
-                  [team.length || "—", "People"],
                 ].map(([value, label], i) => (
                   <Reveal key={label as string} delay={revealDelay(i)}>
                     <p
@@ -287,57 +279,7 @@ export default async function G3Home({
             </div>
           </section>
 
-          {team.length > 0 && (
-            <section className="mx-auto max-w-6xl px-6 pb-8">
-              <Reveal>
-                <span className="g3-meta">The team</span>
-                <h2 className="g3-display-lg mb-12 mt-3" style={{ color: "var(--g3-ink)" }}>
-                  Who you&rsquo;ll actually work with
-                </h2>
-              </Reveal>
 
-              <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-                {team.map((m, i) => (
-                  <RevealImage key={m.id} delay={revealDelay(i)}>
-                    <div
-                      className="overflow-hidden rounded-xl border"
-                      style={{ borderColor: "var(--g3-rule-faint)", background: "var(--g3-card-bg, var(--g3-black-raised))" }}
-                    >
-                      <div className="relative aspect-[4/5]" style={{ background: "var(--g3-photo-bg, var(--g3-black))" }}>
-                        {m.photoUrl && (
-                          <Image
-                            src={m.photoUrl}
-                            alt={m.photoAlt || m.name}
-                            fill
-                            loading="lazy"
-                            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                            className="object-cover"
-                          />
-                        )}
-                      </div>
-                      <div className="p-5">
-                        <h3 className="text-lg font-semibold" style={{ color: "var(--g3-ink)" }}>{m.name}</h3>
-                        <p className="g3-meta mt-1">{m.role}</p>
-                        {m.bio && <p className="g3-body mt-3 text-sm">{m.bio}</p>}
-                      </div>
-                    </div>
-                  </RevealImage>
-                ))}
-              </div>
-            </section>
-          )}
-
-          {testimonials.length > 0 && (
-            <section className="mx-auto max-w-6xl px-6 py-24 md:py-32">
-              <Reveal>
-                <span className="g3-meta">Clients</span>
-                <h2 className="g3-display-lg mb-10 mt-3" style={{ color: "var(--g3-ink)" }}>
-                  In their words
-                </h2>
-              </Reveal>
-              <TestimonialCarousel items={testimonials} />
-            </section>
-          )}
         </div>
       </section>
 
