@@ -10,12 +10,13 @@
  */
 
 import { useState, useEffect } from "react";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { CalendarCheck } from "lucide-react";
 import { useGlobalLoader } from "@/components/global-loader-provider";
 
 export default function StickyMobileCTA() {
   const pathname = usePathname();
+  const router = useRouter();
   const { loading } = useGlobalLoader();
   const [isHidden, setIsHidden] = useState(false);
 
@@ -51,7 +52,12 @@ export default function StickyMobileCTA() {
 
 
       <button
-        onClick={() => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })}
+        onClick={() => {
+          const contact = document.getElementById("contact");
+          // The form only exists on the home page; from anywhere else, go there.
+          if (contact) contact.scrollIntoView({ behavior: "smooth" });
+          else router.push("/#contact");
+        }}
         className={`${item} transition-colors hover:opacity-70`}
         style={{ color: "var(--g3-ink)" }}
       >

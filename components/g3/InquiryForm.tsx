@@ -25,6 +25,7 @@ export default function InquiryForm() {
   const [form, setForm] = useState({
     name: "", email: "",
     projectType: "", budgetRange: "", location: "", message: "",
+    website: "", // honeypot, see the hidden input below
   });
   const [status, setStatus] = useState<Status>("idle");
   const [error, setError] = useState("");
@@ -51,6 +52,7 @@ export default function InquiryForm() {
           budgetRange: form.budgetRange || undefined,
           location: form.location.trim() || undefined,
           message: form.message.trim() || undefined,
+          website: form.website || undefined,
         }),
       });
       const data = (await res.json()) as { success?: boolean; error?: string };
@@ -62,7 +64,7 @@ export default function InquiryForm() {
       setStatus("sent");
     } catch {
       setStatus("error");
-      setError("Couldn't reach the server. Please try again, or call us directly.");
+      setError("Couldn't reach the server. Please try again, or email us at hey@verspektive.in.");
     }
   }
 
@@ -90,6 +92,16 @@ export default function InquiryForm() {
 
   return (
     <form onSubmit={submit} noValidate className="grid gap-5 sm:grid-cols-2">
+      {/* Honeypot for spam bots: off-screen, skipped by keyboard and screen
+          readers, so only automated form-fillers ever put a value in it. */}
+      <div aria-hidden="true" style={{ position: "absolute", left: "-10000px", width: 1, height: 1, overflow: "hidden" }}>
+        <label htmlFor="g3-website">Website</label>
+        <input
+          id="g3-website" name="website" type="text" tabIndex={-1} autoComplete="off"
+          value={form.website} onChange={(e) => set("website", e.target.value)}
+        />
+      </div>
+
       <div>
         <label htmlFor="g3-name" className={labelCls} style={labelStyle}>Name *</label>
         <input

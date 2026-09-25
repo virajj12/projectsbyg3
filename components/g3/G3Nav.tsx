@@ -2,7 +2,7 @@
 
 import { useEffect, useState, useRef } from "react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import { Menu, X, ChevronUp, ChevronDown } from "lucide-react";
 import GlassSurface from "@/components/ui/GlassSurface";
@@ -17,6 +17,7 @@ const LINKS = [
 
 export default function G3Nav() {
   const pathname = usePathname();
+  const router = useRouter();
   const reduced = useReducedMotion();
   const [open, setOpen] = useState(false);
   const [activeHash, setActiveHash] = useState<string>("");
@@ -112,6 +113,11 @@ export default function G3Nav() {
         }, 1000);
         element.scrollIntoView({ behavior: "smooth" });
         setOpen(false); // Close mobile menu if open
+      } else {
+        // The section lives on the home page (e.g. we're on /privacy), so go
+        // there instead of swallowing the click.
+        setOpen(false);
+        router.push(`/${href}`);
       }
     } else {
       setOpen(false);
@@ -171,7 +177,7 @@ export default function G3Nav() {
                         setOpen(false);
                       }
                     } else {
-                      window.location.href = "/";
+                      router.push("/");
                     }
                   }}
                   className={`relative z-10 flex items-center justify-center h-9 w-9 shrink-0 rounded-full transition-colors duration-300 ${
