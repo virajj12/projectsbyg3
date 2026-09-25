@@ -26,24 +26,20 @@ export default function G3Nav() {
   const scrollTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
-    const footerObserver = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          setIsFooterVisible(entry.isIntersecting);
-        });
-      },
-      { rootMargin: "50px" } // trigger slightly before footer
-    );
-    
-    // Check after a delay to ensure footer exists
-    const t = setTimeout(() => {
-      const footer = document.getElementById("g3-footer");
-      if (footer) footerObserver.observe(footer);
-    }, 1000);
+    const checkBottom = () => {
+      // Check if we are at the bottom of the page (within 20px)
+      const isBottom = window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 20;
+      setIsFooterVisible(isBottom);
+    };
+
+    window.addEventListener("scroll", checkBottom);
+    window.addEventListener("resize", checkBottom);
+    // Initial check
+    checkBottom();
 
     return () => {
-      clearTimeout(t);
-      footerObserver.disconnect();
+      window.removeEventListener("scroll", checkBottom);
+      window.removeEventListener("resize", checkBottom);
     };
   }, [pathname]);
 
@@ -185,16 +181,22 @@ export default function G3Nav() {
                   onClick={(e) => {
                     if (pathname === "/") {
                       e.preventDefault();
-                      if (activeHash === "") {
-                        const element = document.getElementById("services");
-                        if (element) {
-                          setActiveHash("#services");
-                          isScrollingRef.current = true;
-                          if (scrollTimeoutRef.current) clearTimeout(scrollTimeoutRef.current);
-                          scrollTimeoutRef.current = setTimeout(() => {
-                            isScrollingRef.current = false;
-                          }, 1000);
-                          element.scrollIntoView({ behavior: "smooth" });
+                      if (!isFooterVisible) {
+                        isScrollingRef.current = true;
+                        if (scrollTimeoutRef.current) clearTimeout(scrollTimeoutRef.current);
+                        scrollTimeoutRef.current = setTimeout(() => {
+                          isScrollingRef.current = false;
+                        }, 1000);
+                        
+                        const footer = document.getElementById("g3-footer");
+                        const footerDistance = footer ? footer.getBoundingClientRect().top : Infinity;
+                        
+                        // If the footer is about to be visible or is partially visible, jump to bottom
+                        if (footerDistance < window.innerHeight * 1.5) {
+                          window.scrollTo({ top: document.documentElement.scrollHeight, behavior: "smooth" });
+                        } else {
+                          // Scroll down by 80vh
+                          window.scrollBy({ top: window.innerHeight * 0.8, behavior: "smooth" });
                         }
                       } else {
                         setActiveHash("");
@@ -213,7 +215,7 @@ export default function G3Nav() {
                   className={`relative z-10 flex items-center justify-center h-9 w-9 shrink-0 rounded-full transition-colors duration-300 ${
                     activeHash === "" ? "text-white dark:text-black" : "text-zinc-600 hover:text-black dark:text-zinc-400 dark:hover:text-white"
                   }`}
-                  aria-label={activeHash === "" ? "Scroll down" : "Back to top"}
+                  aria-label={!isFooterVisible ? "Scroll down" : "Back to top"}
                 >
                   {activeHash === "" && (
                     <motion.div
@@ -222,7 +224,7 @@ export default function G3Nav() {
                       transition={{ type: "spring", stiffness: 500, damping: 30 }}
                     />
                   )}
-                  {activeHash === "" ? (
+                  {!isFooterVisible ? (
                     <ChevronDown className="h-5 w-5" />
                   ) : (
                     <ChevronUp className="h-5 w-5" />

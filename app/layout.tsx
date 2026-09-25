@@ -80,8 +80,8 @@ export default function RootLayout({
       <body className={`${inter.variable} ${outfit.variable} ${oswald.variable} antialiased min-h-screen w-full h-full bg-background text-foreground`}>
         <ThemeProvider
           attribute="class"
-          defaultTheme="dark"
-          enableSystem={false}
+          defaultTheme="system"
+          enableSystem={true}
           disableTransitionOnChange={false}
         >
           <GlobalLoaderProvider>

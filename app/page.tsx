@@ -129,16 +129,16 @@ export default async function G3Home({
         
         <section id="services" className="relative w-full border-t border-[var(--g3-rule-faint)] !z-10 bg-[var(--g3-black)] g3-wood-surface">
           <div className="pb-24 pt-32 md:pt-40">
-            <div className="mx-auto max-w-6xl px-6">
-            <div className="g3-meta mb-3 text-[var(--g3-ink)]">
-              <MaskText text="What we do" />
+            <div className="mx-auto max-w-6xl px-6 flex flex-col items-center text-center">
+            <div className="mb-8 text-4xl md:text-6xl font-black tracking-tight uppercase text-[var(--g3-ink)]">
+              <MaskText text="What we do?" />
             </div>
-            <div className="g3-display-lg max-w-4xl" style={{ color: "var(--g3-ink)" }}>
-              <div><MaskText text="Two specialized services." /></div>
-              <div><MaskText text="Focused expertise." /></div>
+            <div className="g3-display-lg max-w-4xl flex flex-col items-center text-center w-full" style={{ color: "var(--g3-ink)" }}>
+              <div className="text-center w-full"><MaskText text="Two specialized services." className="justify-center" /></div>
+              <div className="text-center w-full"><MaskText text="Focused expertise." className="justify-center" /></div>
             </div>
-            <div>
-              <p className="g3-body mt-6 max-w-2xl text-[var(--g3-ink)]">
+            <div className="flex justify-center">
+              <p className="g3-body mt-6 max-w-2xl text-[var(--g3-ink)] text-center">
                 We focus on what we do best. We provide expert consultancy and planning for your exterior architecture, while fully executing your interior design with our dedicated in-house team.
               </p>
             </div>
@@ -146,8 +146,16 @@ export default async function G3Home({
 
           <div className="mx-auto mt-20 max-w-6xl px-6">
             {services.map((s, i) => {
-              const cat = relatedCategory(s.title);
-              const related = cat ? allProjects.filter((p) => p.category === cat).slice(0, 3) : [];
+              let related = [];
+              const titleLower = s.title.toLowerCase();
+              if (titleLower.includes("exterior") || titleLower.includes("external")) {
+                const targetSlugs = ["residence-mantradi", "residence-madanthyar", "residence-byndoor"];
+                related = allProjects.filter((p) => targetSlugs.includes(p.slug));
+                related.sort((a, b) => targetSlugs.indexOf(a.slug) - targetSlugs.indexOf(b.slug));
+              } else {
+                const cat = relatedCategory(s.title);
+                related = cat ? allProjects.filter((p) => p.category === cat).slice(0, 3) : [];
+              }
 
               return (
                 <section
@@ -202,7 +210,7 @@ export default async function G3Home({
           {/* <span className="g3-meta mb-3 !text-white">Portfolio</span> */}
           <Link href="/projects" className="group">
             <h1 className="g3-display-xl transition-opacity hover:opacity-70 text-white">
-              Projects <sup className="text-lg opacity-50 relative -top-8 group-hover:opacity-100 transition-opacity">( {allProjects.length} )</sup>
+              Projects
             </h1>
           </Link>
         </div>
@@ -310,13 +318,7 @@ export default async function G3Home({
 
                   <div className="g3-rule" />
 
-                  <div>
-                    <p className="g3-meta mb-3">Office</p>
-                    <p className="flex items-start gap-3 g3-body">
-                      <MapPin className="mt-1 h-4 w-4 shrink-0" style={{ color: "var(--g3-ink)" }} aria-hidden="true" />
-                      Moodbidri, Dakshina Kannada<br />Karnataka, India
-                    </p>
-                  </div>
+
 
                   <div>
                     <p className="g3-meta mb-3">Hours</p>

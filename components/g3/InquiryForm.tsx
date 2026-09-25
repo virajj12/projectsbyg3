@@ -17,7 +17,7 @@ import { Check, Loader2 } from "lucide-react";
 import Link from "next/link";
 
 const PROJECT_TYPES = ["Residential", "Commercial", "Interiors", "Renovation", "Not sure yet"];
-const BUDGETS = ["Under ₹25L", "₹25L – ₹50L", "₹50L – ₹1Cr", "₹1Cr – ₹3Cr", "Above ₹3Cr", "Not sure yet"];
+
 
 type Status = "idle" | "sending" | "sent" | "error";
 
@@ -128,11 +128,11 @@ export default function InquiryForm() {
       </div>
 
       <div>
-        <label htmlFor="g3-budget" className={labelCls} style={labelStyle}>Budget range</label>
-        <select id="g3-budget" value={form.budgetRange} onChange={(e) => set("budgetRange", e.target.value)} className={field} style={style}>
-          <option value="">Select…</option>
-          {BUDGETS.map((b) => <option key={b} value={b} style={{ color: "#111" }}>{b}</option>)}
-        </select>
+        <label htmlFor="g3-budget" className={labelCls} style={labelStyle}>Budget</label>
+        <input
+          id="g3-budget" value={form.budgetRange} onChange={(e) => set("budgetRange", e.target.value)}
+          placeholder="e.g. ₹5L - ₹1Cr" className={field} style={style}
+        />
       </div>
 
       <div className="sm:col-span-2">
