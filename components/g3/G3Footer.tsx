@@ -65,8 +65,8 @@ export default function G3Footer() {
               }}
             >
               <div className="whitespace-nowrap w-full text-center leading-none">
-                <span className="md:hidden text-[30vw]">G3B&A</span>
-                <span className="hidden md:inline text-[8vw]">G3 BUILDERS & ARCHITECTS</span>
+                <span className="md:hidden" style={{ fontSize: "clamp(3rem, 25vw, 150px)" }}>G3B&A</span>
+                <span className="hidden md:inline" style={{ fontSize: "clamp(2rem, 7.8vw, 112px)" }}>G3 BUILDERS & ARCHITECTS</span>
               </div>
             </div>
           </div>
