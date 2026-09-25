@@ -173,6 +173,8 @@ export default function MasterSequence({ projects, children }: MasterSequencePro
 
   const [activeIndex, setActiveIndex] = useState(0);
 
+  const covers = projects.map((p) => p.cover?.url).filter((u): u is string => Boolean(u));
+
   useMotionValueEvent(scrollYProgress, "change", (latest) => {
     if (latest < 0.60) {
       if (activeIndex !== 0) setActiveIndex(0);
@@ -284,7 +286,11 @@ export default function MasterSequence({ projects, children }: MasterSequencePro
 
         <motion.div className="absolute inset-0 z-20 pointer-events-none" style={{ opacity: portfolioOpacity }}>
           {POSITIONS.map((pos, i) => {
-            const src = projects[i] ? ((projects[i] as any).coverImage || projects[i].cover?.url || FALLBACK_IMAGES[i % FALLBACK_IMAGES.length]) : FALLBACK_IMAGES[i % FALLBACK_IMAGES.length];
+            // Fill the eight slots from G3's own covers, repeating them when a
+            // category filter leaves fewer than eight. Stock photos are only a
+            // last resort for a portfolio with no covers at all, so other
+            // people's buildings never appear as G3 work.
+            const src = covers.length ? covers[i % covers.length] : FALLBACK_IMAGES[i % FALLBACK_IMAGES.length];
             return (
               <div key={i} className="pointer-events-auto">
                 <ParallaxImage src={src} pos={pos} progress={scrollYProgress} index={i} mouseX={smoothMouseX} />

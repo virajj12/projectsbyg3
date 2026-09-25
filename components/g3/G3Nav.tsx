@@ -2,7 +2,7 @@
 
 import { useEffect, useState, useRef } from "react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import { Menu, X, ChevronUp, ChevronDown } from "lucide-react";
 import GlassSurface from "@/components/ui/GlassSurface";
@@ -17,6 +17,7 @@ const LINKS = [
 
 export default function G3Nav() {
   const pathname = usePathname();
+  const router = useRouter();
   const reduced = useReducedMotion();
   const [open, setOpen] = useState(false);
   const [activeHash, setActiveHash] = useState<string>("");
@@ -112,6 +113,11 @@ export default function G3Nav() {
         }, 1000);
         element.scrollIntoView({ behavior: "smooth" });
         setOpen(false); // Close mobile menu if open
+      } else {
+        // The section lives on the home page (e.g. we're on /privacy), so go
+        // there instead of swallowing the click.
+        setOpen(false);
+        router.push(`/${href}`);
       }
     } else {
       setOpen(false);
@@ -146,7 +152,7 @@ export default function G3Nav() {
                 className="flex items-center gap-1 overflow-hidden whitespace-nowrap bg-white/40 dark:bg-black/40 backdrop-blur-lg border border-black/10 dark:border-white/10 shadow-inner p-1 rounded-full mr-2"
               >
                 <Link
-                  href={activeHash === "" ? "#services" : "/"}
+                  href={pathname !== "/" ? "/" : activeHash === "" ? "#services" : "/"}
                   onClick={(e) => {
                     if (pathname === "/") {
                       e.preventDefault();
