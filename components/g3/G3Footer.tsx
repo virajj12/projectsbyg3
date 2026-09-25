@@ -52,11 +52,11 @@ export default function G3Footer() {
       </div>
 
       {/* Bottom Section - Always Dark Grey & White text */}
-      <div className="bg-zinc-900 text-white pt-4 md:pt-6 pb-2 md:pb-0">
+      <div className="bg-zinc-900 text-white pt-6 pb-6 md:pt-6 md:pb-0">
         <div className="w-full px-0 flex flex-col">
           
           {/* MASSIVE LOGO - using Oswald, all one line */}
-          <div className="w-full flex justify-center items-center pointer-events-none pb-2">
+          <div className="w-full flex justify-center items-center pointer-events-none">
             <div 
               className="w-full text-center uppercase tracking-tighter leading-none text-white"
               style={{ 
