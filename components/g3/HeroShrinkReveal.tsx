@@ -86,9 +86,9 @@ export default function HeroShrinkReveal({
           />
 
           <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-            <div ref={logoRef} className="relative w-[45%] max-w-[340px] aspect-[2/1]">
+            <div ref={logoRef} className="relative w-[25%] max-w-[191px] aspect-[2/1]">
               <Image
-                src="/G3 B & A LOGO BLACK.png"
+                src="/G3 black.png"
                 alt="G3 Builders Logo"
                 fill
                 sizes="(max-width: 768px) 100vw, 33vw"
@@ -96,7 +96,7 @@ export default function HeroShrinkReveal({
                 priority
               />
               <Image
-                src="/G3 B & A LOGO WHITE.png"
+                src="/G3 white.png"
                 alt="G3 Builders Logo"
                 fill
                 sizes="(max-width: 768px) 100vw, 33vw"

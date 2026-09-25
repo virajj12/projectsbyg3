@@ -20,8 +20,31 @@ export default function G3Nav() {
   const reduced = useReducedMotion();
   const [open, setOpen] = useState(false);
   const [activeHash, setActiveHash] = useState<string>("");
+  const [isFooterVisible, setIsFooterVisible] = useState(false);
   const isScrollingRef = useRef(false);
   const scrollTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+
+  useEffect(() => {
+    const footerObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          setIsFooterVisible(entry.isIntersecting);
+        });
+      },
+      { rootMargin: "50px" } // trigger slightly before footer
+    );
+    
+    // Check after a delay to ensure footer exists
+    const t = setTimeout(() => {
+      const footer = document.getElementById("g3-footer");
+      if (footer) footerObserver.observe(footer);
+    }, 1000);
+
+    return () => {
+      clearTimeout(t);
+      footerObserver.disconnect();
+    };
+  }, [pathname]);
 
   useEffect(() => {
     document.body.style.overflow = open ? "hidden" : "";
@@ -99,10 +122,11 @@ export default function G3Nav() {
   return (
     <>
       <motion.header
-        className="fixed left-1/2 bottom-24 md:bottom-6 z-[44] flex -translate-x-1/2 items-center rounded-full"
-        animate={{ width: "auto" }}
+        className="sticky bottom-24 md:bottom-6 z-[44] flex justify-center w-full h-0 overflow-visible pointer-events-none"
+        animate={{ width: "100%" }}
         transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
       >
+        <div className="absolute bottom-0 pointer-events-auto">
         <GlassSurface
           width="max-content"
           height="max-content"
@@ -218,6 +242,7 @@ export default function G3Nav() {
         </a>
           </div>
         </GlassSurface>
+        </div>
       </motion.header>
 
       {/* Mobile Menu Backdrop */}

@@ -33,13 +33,13 @@ export default function Hero({
   // Distance to complete the scroll animation (in px)
   const SCROLL_DISTANCE = 400;
 
-  // Navbar logo width: 144px on desktop, 112px on mobile
+  // Navbar logo width: 81px on desktop, 63px on mobile (75% of previous)
   const isDesktop = windowSize.w >= 768;
-  const finalWidth = isDesktop ? 144 : 112;
+  const finalWidth = isDesktop ? 81 : 63;
   const finalHeight = finalWidth / 2; // Aspect ratio is 2:1
 
-  // Center logo width: 45% of viewport width, capped at 340px
-  const initialWidth = Math.min(windowSize.w * 0.45, 340);
+  // Center logo width: ~25% of viewport width, capped at 191px (75% of previous)
+  const initialWidth = Math.min(windowSize.w * 0.25, 191);
   const initialHeight = initialWidth / 2;
   const scaleRatio = initialWidth / finalWidth;
 
@@ -83,7 +83,7 @@ export default function Hero({
           style={{ x, y, scale, width: finalWidth, height: finalHeight }}
         >
           <Image
-            src="/G3 B & A LOGO BLACK.png"
+            src="/G3 black.png"
             alt="G3 Builders Logo"
             fill
             sizes="(max-width: 768px) 100vw, 33vw"
@@ -91,7 +91,7 @@ export default function Hero({
             priority
           />
           <Image
-            src="/G3 B & A LOGO WHITE.png"
+            src="/G3 white.png"
             alt="G3 Builders Logo"
             fill
             sizes="(max-width: 768px) 100vw, 33vw"

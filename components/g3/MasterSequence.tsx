@@ -266,7 +266,6 @@ export default function MasterSequence({ projects, children }: MasterSequencePro
               priority
             />
           </motion.div>
-          <div className="absolute inset-0 bg-black/40 pointer-events-none" />
           <div 
             className="absolute inset-0 pointer-events-none mix-blend-overlay opacity-30"
             style={{

@@ -16,25 +16,7 @@ export default function G3Footer() {
   const reduced = useReducedMotion();
 
   return (
-    <footer className="g3-wood-surface-deep relative overflow-hidden">
-      {/* Marquee */}
-      <div className="overflow-hidden border-b py-5" style={{ borderColor: "var(--g3-rule-faint)" }}>
-        <div
-          className="flex whitespace-nowrap"
-          style={reduced ? undefined : { animation: "g3-marquee 32s linear infinite" }}
-        >
-          {[0, 1].map((i) => (
-            <span
-              key={i}
-              className="shrink-0 pr-8 text-lg tracking-tight"
-              style={{ fontFamily: "var(--g3-font-display)", color: "var(--g3-ink-faint)" }}
-              aria-hidden={i === 1}
-            >
-              {TAGLINE.repeat(3)}
-            </span>
-          ))}
-        </div>
-      </div>
+    <footer id="g3-footer" className="g3-wood-surface-deep relative overflow-hidden">
 
       <div className="mx-auto grid max-w-6xl gap-10 px-6 py-14 sm:grid-cols-2 lg:grid-cols-4">
         <div className="sm:col-span-2">
@@ -51,9 +33,9 @@ export default function G3Footer() {
           <ul className="space-y-2 text-sm">
             {[
               ["Projects", "/projects"],
-              ["Services", "/services"],
-              ["Process", "/process"],
-              ["About", "/about"],
+              ["Services", "/#services"],
+              ["Process", "/#process"],
+              ["About", "/#about"],
               ["Privacy Policy", "/privacy"],
             ].map(([label, href]) => (
               <li key={href}>

@@ -85,8 +85,10 @@ export default function RootLayout({
                   type="application/ld+json"
                   dangerouslySetInnerHTML={{ __html: JSON.stringify(LOCAL_BUSINESS) }}
                 />
-                <G3Nav />
-                <main className="pb-20 md:pb-0">{children}</main>
+                <div className="relative w-full h-full flex flex-col min-h-screen pb-24 md:pb-10">
+                  <main className="pb-20 md:pb-0 flex-grow">{children}</main>
+                  <G3Nav />
+                </div>
                 <G3Footer />
                 <StickyMobileCTA />
               </div>
