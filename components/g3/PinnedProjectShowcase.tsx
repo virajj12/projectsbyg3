@@ -142,9 +142,9 @@ export default function PinnedProjectShowcase({ projects }: { projects: G3Projec
                   >
                     {p.title}
                   </h3>
-                  {(p.location || p.year) && (
+                  {p.location && (
                     <p className="mt-1 text-sm" style={{ color: "var(--g3-ink-faint)" }}>
-                      {[p.location, p.year].filter(Boolean).join(" · ")}
+                      {p.location}
                     </p>
                   )}
                 </div>

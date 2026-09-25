@@ -9,7 +9,6 @@ import {
   getProjects,
   getServices,
   getPageContent,
-  getStats,
   G3_CATEGORIES
 } from "@/lib/g3-data";
 import Hero from "@/components/g3/Hero";
@@ -82,13 +81,11 @@ export default async function G3Home({
     allProjects,
     homePage,
     aboutPage,
-    stats,
     fromDbServices
   ] = await Promise.all([
     getProjects(),
     getPageContent("home"),
     getPageContent("about"),
-    getStats(),
     getServices()
   ]);
 
@@ -231,30 +228,7 @@ export default async function G3Home({
             </Reveal>
           </div>
 
-          {stats.projects > 0 && (
-            <section
-              className="g3-wood-surface mt-20 border-y"
-              style={{ borderColor: "var(--g3-rule-faint)" }}
-            >
-              <div className="mx-auto grid max-w-6xl grid-cols-2 gap-8 px-6 py-14 md:grid-cols-3">
-                {[
-                  [stats.projects, "Projects delivered"],
-                  [stats.yearsActive, "Years active"],
-                  [stats.cities, "Locations served"],
-                ].map(([value, label], i) => (
-                  <Reveal key={label as string} delay={revealDelay(i)}>
-                    <p
-                      className="g3-display-md"
-                      style={{ fontFamily: "var(--g3-font-mono)", color: "var(--g3-ink)", opacity: 0.9 }}
-                    >
-                      {value}
-                    </p>
-                    <p className="mt-1 text-sm" style={{ color: "var(--g3-ink-soft)" }}>{label}</p>
-                  </Reveal>
-                ))}
-              </div>
-            </section>
-          )}
+
 
           <section className="mx-auto max-w-6xl px-6 py-24">
             <Reveal>

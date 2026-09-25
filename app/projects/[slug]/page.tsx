@@ -45,16 +45,7 @@ export default async function ProjectDetail({ params }: { params: Promise<{ slug
 
   const { project, gallery, prev, next } = data;
 
-  const meta: [string, string | number][] = (
-    [
-      ["Client", project.clientName],
-      ["Location", project.location],
-      ["Sq ft", project.sqft ? project.sqft.toLocaleString("en-IN") : null],
-      ["Year", project.year],
-      ["Scope", project.category],
-      ["Status", project.status],
-    ] as [string, string | number | null][]
-  ).filter((entry): entry is [string, string | number] => entry[1] != null);
+  const allGalleryImages = project.cover ? [project.cover, ...gallery] : gallery;
 
   const jsonLd = {
     "@context": "https://schema.org",
@@ -68,8 +59,18 @@ export default async function ProjectDetail({ params }: { params: Promise<{ slug
   };
 
   return (
-    <article>
+    <article className="relative bg-background">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+
+      <div className="absolute top-0 left-0 right-0 p-6 md:p-8 flex justify-between items-center z-50 pointer-events-none">
+        <Link 
+          href="/projects" 
+          className="pointer-events-auto bg-black/20 hover:bg-black/40 backdrop-blur-md rounded-full p-2 text-white transition-all flex items-center justify-center"
+          aria-label="Back to Projects"
+        >
+          <ChevronLeft className="w-6 h-6 md:w-8 md:h-8" />
+        </Link>
+      </div>
 
       {/* Hero */}
       <section className="relative flex min-h-[70svh] items-end overflow-hidden">
@@ -95,48 +96,27 @@ export default async function ProjectDetail({ params }: { params: Promise<{ slug
         <div className="relative mx-auto w-full max-w-5xl px-6 pb-16 pt-32">
           <Reveal>
             <span className="g3-meta">{project.category}</span>
-            <h1 className="g3-display-xl mt-3" style={{ color: "var(--g3-ink)" }}>{project.title}</h1>
+            <h1 className="g3-display-lg mt-3" style={{ color: "var(--g3-ink)" }}>{project.title}</h1>
           </Reveal>
         </div>
       </section>
 
-      {/* Metadata */}
-      <section className="border-b" style={{ borderColor: "var(--g3-rule-faint)" }}>
-        <dl className="mx-auto grid max-w-5xl grid-cols-2 gap-6 px-6 py-10 sm:grid-cols-3 lg:grid-cols-6">
-          {meta.map(([label, value], i) => (
-            <Reveal key={label} delay={revealDelay(i, 0.05)}>
-              <dt className="g3-meta mb-1.5">{label}</dt>
-              <dd className="text-sm capitalize" style={{ color: "var(--g3-ink)" }}>{value}</dd>
-            </Reveal>
-          ))}
-        </dl>
-      </section>
+
 
       {/* Narrative */}
-      {(project.summary || project.body) && (
+      {project.summary && (
         <section className="mx-auto max-w-3xl px-6 py-20 md:py-28">
-          {project.summary && (
-            <Reveal>
-              <p className="g3-display-md mb-8" style={{ color: "var(--g3-ink)" }}>{project.summary}</p>
-            </Reveal>
-          )}
-          {project.body && (
-            <Reveal delay={0.1}>
-              <div className="g3-body space-y-5">
-                {project.body.split(/\n{2,}/).map((para, i) => (
-                  <p key={i}>{para}</p>
-                ))}
-              </div>
-            </Reveal>
-          )}
+          <Reveal>
+            <p className="g3-display-md" style={{ color: "var(--g3-ink)" }}>{project.summary}</p>
+          </Reveal>
         </section>
       )}
 
       {/* Gallery */}
-      {gallery.length > 0 && (
+      {allGalleryImages.length > 0 && (
         <section className="mx-auto max-w-6xl px-6 pb-24">
           <div className="grid gap-5 sm:grid-cols-2">
-            {gallery.map((g, i) => (
+            {allGalleryImages.map((g, i) => (
               <RevealImage
                 key={`${g.url}-${i}`}
                 delay={revealDelay(i, 0.06)}
@@ -171,11 +151,7 @@ export default async function ProjectDetail({ params }: { params: Promise<{ slug
                       />
                     )}
                   </div>
-                  {g.caption && (
-                    <figcaption className="mt-2.5 text-sm" style={{ color: "var(--g3-ink-faint)" }}>
-                      {g.caption}
-                    </figcaption>
-                  )}
+                  
                 </figure>
               </RevealImage>
             ))}

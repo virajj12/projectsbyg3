@@ -17,11 +17,11 @@ export default async function ProjectsPage() {
   const allImages = allProjects.flatMap(project => {
     const images = [];
     if (project.cover) {
-      images.push({ ...project.cover, projectTitle: project.title });
+      images.push({ ...project.cover, projectTitle: project.title, projectSlug: project.slug });
     }
     if (project.gallery) {
       project.gallery.forEach((img: any) => {
-        images.push({ ...img, projectTitle: project.title });
+        images.push({ ...img, projectTitle: project.title, projectSlug: project.slug });
       });
     }
     return images;

@@ -231,11 +231,11 @@ export default function MasterSequence({ projects, children }: MasterSequencePro
           /* DESKTOP (>= 768px) */
           @media (min-width: 768px) {
             .ms-img-0 { top: 5%; left: 0%; width: 25vw; height: 45vh; }
-            .ms-img-1 { top: 40%; left: 10%; width: 15vw; height: 20vh; }
+            .ms-img-1 { top: 40%; left: 18%; width: 20vw; height: 28vh; }
             .ms-img-2 { top: 60%; left: 0%; width: 20vw; height: 35vh; }
             .ms-img-3 { top: 0%; left: 35%; width: 18vw; height: 40vh; }
             .ms-img-4 { top: 5%; right: 10%; width: 22vw; height: 20vh; }
-            .ms-img-5 { top: 45%; right: 15%; width: 12vw; height: 18vh; }
+            .ms-img-5 { top: 45%; right: 20%; width: 18vw; height: 27vh; }
             .ms-img-6 { top: 50%; right: 0%; width: 25vw; height: 50vh; }
             .ms-img-7 { top: 70%; left: 28%; width: 20vw; height: 25vh; }
 
@@ -258,7 +258,7 @@ export default function MasterSequence({ projects, children }: MasterSequencePro
         >
           <motion.div className="absolute" style={{ top: "-15%", bottom: "-15%", left: 0, right: 0, scale: imgScale, y: innerImgY }}>
             <Image
-              src="https://images.unsplash.com/photo-1600607686527-6fb886090705?auto=format&fit=crop&w=2000&q=80"
+              src="/images/projects/Salon 3.jpg"
               alt="Immersive architectural transition"
               fill
               sizes="100vw"

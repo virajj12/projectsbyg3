@@ -31,6 +31,7 @@ export interface G3Project {
   body: string | null;
   featured: boolean;
   cover: G3Image | null;
+  gallery?: G3GalleryItem[];
 }
 
 export interface G3GalleryItem extends G3Image {
