@@ -94,14 +94,6 @@ function KineticStageContent({ s, isActive }: { s: any, isActive: boolean }) {
       <div className="text-lg md:text-2xl font-light leading-snug mb-4 md:mb-6 opacity-90 min-h-[80px]">
         {isActive && <MaskText text={s.what} />}
       </div>
-      {s.client && (
-        <div className="border-t border-white/20 pt-3 md:pt-4">
-          <span className="g3-meta !text-white text-[10px] md:text-xs block mb-1 md:mb-2 opacity-60">Deliverables & Responsibilities</span>
-          <div className="text-sm md:text-base opacity-80 min-h-[60px]">
-            {isActive && <MaskText text={s.client} />}
-          </div>
-        </div>
-      )}
     </motion.div>
   );
 }

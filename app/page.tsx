@@ -14,6 +14,7 @@ import {
 import Hero from "@/components/g3/Hero";
 import StickyLogo from "@/components/g3/StickyLogo";
 import ProjectCard from "@/components/g3/ProjectCard";
+import ScrollButton from "@/components/g3/ScrollButton";
 
 import dynamic from 'next/dynamic';
 
@@ -170,9 +171,9 @@ export default async function G3Home({
                       )}
                       {s.body && <p className="g3-body">{s.body}</p>}
 
-                      <Link href="#contact" className="g3-link mt-6">
+                      <ScrollButton targetId="contact" className="g3-link mt-6">
                         Discuss a {s.title.toLowerCase()} project <ChevronRight aria-hidden="true" />
-                      </Link>
+                      </ScrollButton>
                     </ScrollDrivenSlideIn>
                   </div>
 
@@ -215,13 +216,13 @@ export default async function G3Home({
           </Reveal>
           <Reveal delay={0.1}>
             <p className="text-xl mb-10 opacity-80 font-light">
-              Bring your site documents and a rough budget. We&rsquo;ll tell you honestly whether what you want fits what you have.
+              Tell us what you want and a rough budget. We&rsquo;ll tell you honestly whether what you want fits what you have.
             </p>
           </Reveal>
           <Reveal delay={0.2}>
-            <Link href="#contact" className="inline-flex items-center gap-2 rounded-full px-8 py-5 text-lg font-semibold transition-transform hover:scale-105" style={{ background: "var(--g3-ink)", color: "var(--g3-black)" }}>
+            <ScrollButton targetId="contact" className="inline-flex items-center gap-2 rounded-full px-8 py-5 text-lg font-semibold transition-transform hover:scale-105" style={{ background: "var(--g3-ink)", color: "var(--g3-black)" }}>
               Book a consultation <ChevronRight className="h-5 w-5" />
-            </Link>
+            </ScrollButton>
           </Reveal>
         </div>
       </section>
@@ -231,8 +232,7 @@ export default async function G3Home({
         <div className="py-20 text-center">
           <div className="mx-auto max-w-6xl px-6">
             <Reveal>
-              <span className="g3-meta">About</span>
-              <h1 className="g3-display-xl mt-3 mx-auto max-w-3xl" style={{ color: "var(--g3-ink)" }}>
+              <h1 className="g3-display-xl mx-auto max-w-3xl" style={{ color: "var(--g3-ink)" }}>
                 Small enough to care. Equipped to deliver.
               </h1>
             </Reveal>
@@ -245,8 +245,7 @@ export default async function G3Home({
 
           <section className="mx-auto max-w-6xl px-6 py-24">
             <Reveal>
-              <span className="g3-meta">How we think</span>
-              <h2 className="g3-display-lg mb-12 mt-3" style={{ color: "var(--g3-ink)" }}>
+              <h2 className="g3-display-lg mb-12" style={{ color: "var(--g3-ink)" }}>
                 Three things we don&rsquo;t compromise on
               </h2>
             </Reveal>
@@ -275,8 +274,7 @@ export default async function G3Home({
         <div className="pb-24 pt-32 md:pt-40">
           <div className="mx-auto max-w-6xl px-6">
             <Reveal>
-              <span className="g3-meta">Get in touch</span>
-              <h1 className="g3-display-xl mt-3 max-w-3xl" style={{ color: "var(--g3-ink)" }}>
+              <h1 className="g3-display-xl max-w-3xl" style={{ color: "var(--g3-ink)" }}>
                 Tell us about your project.
               </h1>
             </Reveal>

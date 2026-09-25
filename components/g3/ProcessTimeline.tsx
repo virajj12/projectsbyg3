@@ -24,35 +24,35 @@ export const PROCESS_STAGES = [
     title: "Concept",
     duration: "2–3 weeks",
     what: "We walk the site, understand how you actually live or work, and agree the brief, budget envelope and constraints before anything is drawn.",
-    client: "You provide: site documents, rough budget, references you like.",
+
   },
   {
     key: "design",
     title: "Design",
     duration: "6–10 weeks",
     what: "Plans, elevations and 3D views developed until the space is resolved. You see real material palettes, not just line drawings.",
-    client: "You receive: floor plans, renders, material board, cost estimate.",
+
   },
   {
     key: "approvals",
     title: "Approvals",
     duration: "4–8 weeks",
     what: "Statutory drawings, panchayat or corporation submissions, and the follow-up needed to get sanction without stalling.",
-    client: "You provide: ownership papers and signatures. We handle the rest.",
+
   },
   {
     key: "execution",
     title: "Execution",
     duration: "8–18 months",
     what: "Execution with our own site team, staged billing tied to milestones, and weekly progress you can see rather than take on trust.",
-    client: "You receive: weekly site updates, milestone billing, quality checks.",
+
   },
   {
     key: "handover",
     title: "Handover",
     duration: "2–4 weeks",
     what: "Snagging, final finishes, cleaning and documentation — then the keys, with warranties and drawings in a form you can actually use later.",
-    client: "You receive: keys, as-built drawings, warranties, maintenance notes.",
+
   },
 ];
 
@@ -81,9 +81,7 @@ export default function ProcessTimeline({ condensed = false }: { condensed?: boo
                   {s.title}
                 </h3>
                 <p className="g3-body max-w-2xl">{s.what}</p>
-                {!condensed && (
-                  <p className="mt-3 text-sm" style={{ color: "var(--g3-brass-light)" }}>{s.client}</p>
-                )}
+
               </div>
             </div>
           </Reveal>

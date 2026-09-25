@@ -67,10 +67,6 @@ export default function KineticProcess() {
               <p className="text-2xl md:text-4xl font-light leading-snug mb-8 opacity-90">
                 {s.what}
               </p>
-              <div className="border-t border-white/20 pt-6">
-                <span className="g3-meta !text-white block mb-2 opacity-60">Deliverables & Responsibilities</span>
-                <p className="text-lg opacity-80">{s.client}</p>
-              </div>
             </div>
           </div>
         ))}

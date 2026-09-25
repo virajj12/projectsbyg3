@@ -41,7 +41,7 @@ export default function G3Footer() {
         
         {/* Mobile Bottom Row (Inside White Area) */}
         <div className="mt-16 flex flex-col md:hidden items-center gap-4 px-6 py-5 text-[11px] font-medium tracking-wide text-muted-foreground border-t border-black/10 dark:border-white/10">
-          <span>© {new Date().getFullYear()} G3 Builders & Architects</span>
+          <span>© {new Date().getFullYear()} G3B&A</span>
           <div className="flex items-center gap-6">
             <Link href="/privacy" className="hover:text-foreground transition-colors">Privacy Policy</Link>
             <a href="https://verspektive.in" target="_blank" rel="noreferrer" className="hover:text-foreground transition-colors">Website by VerspeKtive</a>
@@ -54,7 +54,7 @@ export default function G3Footer() {
         <div className="mx-auto max-w-[90rem] px-6 lg:px-12 flex flex-col">
           
           {/* MASSIVE LOGO - using Oswald, all one line */}
-          <div className="w-full flex justify-between items-center pointer-events-none pb-2">
+          <div className="w-full flex justify-center items-center pointer-events-none pb-2">
             <div 
               className="w-full text-center uppercase tracking-tighter leading-none text-white"
               style={{ 
@@ -62,11 +62,9 @@ export default function G3Footer() {
                 fontWeight: 700,
               }}
             >
-              <div className="text-[7.5vw] md:text-[8vw] whitespace-nowrap w-full flex justify-between">
-                <span>G3</span>
-                <span>BUILDERS</span>
-                <span>&</span>
-                <span>ARCHITECTS</span>
+              <div className="whitespace-nowrap w-full text-center leading-none">
+                <span className="md:hidden text-[30vw]">G3B&A</span>
+                <span className="hidden md:inline text-[8vw]">G3 BUILDERS & ARCHITECTS</span>
               </div>
             </div>
           </div>

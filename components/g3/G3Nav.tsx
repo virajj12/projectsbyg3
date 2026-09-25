@@ -98,7 +98,7 @@ export default function G3Nav() {
   }, [pathname]);
 
   // Smooth scroll handler
-  const handleLinkClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+  const handleLinkClick = (e: React.MouseEvent<HTMLAnchorElement | HTMLButtonElement>, href: string) => {
     if (href.startsWith("#")) {
       e.preventDefault();
       const id = href.substring(1);
@@ -145,8 +145,7 @@ export default function G3Nav() {
                 transition={{ duration: 0.3 }}
                 className="flex items-center gap-1 overflow-hidden whitespace-nowrap bg-white/40 dark:bg-black/40 backdrop-blur-lg border border-black/10 dark:border-white/10 shadow-inner p-1 rounded-full mr-2"
               >
-                <Link
-                  href={activeHash === "" ? "#services" : "/"}
+                <button
                   onClick={(e) => {
                     if (pathname === "/") {
                       e.preventDefault();
@@ -171,6 +170,8 @@ export default function G3Nav() {
                         window.scrollTo({ top: 0, behavior: "smooth" });
                         setOpen(false);
                       }
+                    } else {
+                      window.location.href = "/";
                     }
                   }}
                   className={`relative z-10 flex items-center justify-center h-9 w-9 shrink-0 rounded-full transition-colors duration-300 ${
@@ -190,15 +191,14 @@ export default function G3Nav() {
                   ) : (
                     <ChevronUp className="h-5 w-5" />
                   )}
-                </Link>
+                </button>
 
                 <nav className="hidden items-center md:flex">
                   {LINKS.map((l) => {
                     const isActive = activeHash === l.href;
                     return (
-                      <a
+                      <button
                         key={l.href}
-                        href={l.href}
                         onClick={(e) => handleLinkClick(e, l.href)}
                         className={`relative z-10 rounded-full px-5 py-2 text-sm transition-colors duration-300 cursor-pointer ${
                           isActive
@@ -214,7 +214,7 @@ export default function G3Nav() {
                           />
                         )}
                         {l.label}
-                      </a>
+                      </button>
                     );
                   })}
                 </nav>
@@ -232,14 +232,13 @@ export default function G3Nav() {
         </button>
 
         {/* Desktop keeps a direct CTA in the pill. */}
-        <a
-          href="#contact"
+        <button
           onClick={(e) => handleLinkClick(e, "#contact")}
           className="hidden shrink-0 rounded-full px-5 py-2 text-sm font-semibold md:block cursor-pointer"
           style={{ background: "var(--g3-ink)", color: "var(--g3-black)" }}
         >
           Book a consultation
-        </a>
+        </button>
           </div>
         </GlassSurface>
         </div>
@@ -278,10 +277,9 @@ export default function G3Nav() {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.05 + i * 0.05, duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
                 >
-                  <a
-                    href={l.href}
+                  <button
                     onClick={(e) => handleLinkClick(e, l.href)}
-                    className="block py-3 text-3xl font-semibold tracking-tight cursor-pointer"
+                    className="block py-3 text-3xl font-semibold tracking-tight cursor-pointer text-left w-full"
                     style={{
                       fontFamily: "var(--g3-font-display)",
                       color:
@@ -291,7 +289,7 @@ export default function G3Nav() {
                     }}
                   >
                     {l.label}
-                  </a>
+                  </button>
                 </motion.div>
               ))}
             </nav>
