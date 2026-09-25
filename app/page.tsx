@@ -14,7 +14,7 @@ import {
 import Hero from "@/components/g3/Hero";
 import StickyLogo from "@/components/g3/StickyLogo";
 import ProjectCard from "@/components/g3/ProjectCard";
-import CategoryFilter from "@/components/g3/CategoryFilter";
+
 import dynamic from 'next/dynamic';
 
 const MasterSequence = dynamic(() => import("@/components/g3/MasterSequence"));
