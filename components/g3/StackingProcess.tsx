@@ -91,9 +91,7 @@ export default function StackingProcess() {
 
             <p className="g3-body max-w-2xl">{s.what}</p>
 
-            <p className="mt-5 text-sm" style={{ color: "var(--g3-brass-light)" }}>
-              {s.client}
-            </p>
+
           </div>
         </div>
       ))}

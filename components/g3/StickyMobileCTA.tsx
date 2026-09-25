@@ -56,7 +56,7 @@ export default function StickyMobileCTA() {
           const contact = document.getElementById("contact");
           // The form only exists on the home page; from anywhere else, go there.
           if (contact) contact.scrollIntoView({ behavior: "smooth" });
-          else router.push("/#contact");
+          else router.push("/");
         }}
         className={`${item} transition-colors hover:opacity-70`}
         style={{ color: "var(--g3-ink)" }}

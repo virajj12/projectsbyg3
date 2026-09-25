@@ -2,8 +2,10 @@
 
 import Link from "next/link";
 import { MailDropdown } from "@/components/ui/mail-dropdown";
+import { useRouter } from "next/navigation";
 
 export default function G3Footer() {
+  const router = useRouter();
   return (
     <footer id="g3-footer" className="relative overflow-hidden transition-colors duration-300">
       
@@ -16,9 +18,9 @@ export default function G3Footer() {
             <div className="flex flex-col gap-3 items-center md:items-start">
               <Link href="/" className="hover:text-muted-foreground transition-colors">Home</Link>
               <Link href="/projects" className="hover:text-muted-foreground transition-colors">Projects</Link>
-              <Link href="/#services" className="hover:text-muted-foreground transition-colors">Services</Link>
-              <Link href="/#process" className="hover:text-muted-foreground transition-colors">Process</Link>
-              <Link href="/#about" className="hover:text-muted-foreground transition-colors">About</Link>
+              <button onClick={() => document.getElementById('services') ? document.getElementById('services')!.scrollIntoView({ behavior: 'smooth' }) : router.push("/")} className="hover:text-muted-foreground transition-colors">Services</button>
+              <button onClick={() => document.getElementById('process') ? document.getElementById('process')!.scrollIntoView({ behavior: 'smooth' }) : router.push("/")} className="hover:text-muted-foreground transition-colors">Process</button>
+              <button onClick={() => document.getElementById('about') ? document.getElementById('about')!.scrollIntoView({ behavior: 'smooth' }) : router.push("/")} className="hover:text-muted-foreground transition-colors">About</button>
             </div>
           </div>
 

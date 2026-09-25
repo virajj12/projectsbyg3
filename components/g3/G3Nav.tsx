@@ -4,7 +4,7 @@ import { useEffect, useState, useRef } from "react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
-import { Menu, X, ChevronUp, ChevronDown } from "lucide-react";
+import { Menu, X, ChevronUp, ChevronDown, ChevronLeft } from "lucide-react";
 import GlassSurface from "@/components/ui/GlassSurface";
 
 const LINKS = [
@@ -117,13 +117,43 @@ export default function G3Nav() {
         // The section lives on the home page (e.g. we're on /privacy), so go
         // there instead of swallowing the click.
         setOpen(false);
-        router.push(`/${href}`);
+        router.push("/");
       }
     } else {
       setOpen(false);
     }
   };
   if (pathname.startsWith("/projects")) return null;
+
+  if (pathname === "/privacy") {
+    return (
+      <motion.header
+        className="sticky bottom-24 md:bottom-6 z-[44] flex justify-center w-full h-0 overflow-visible pointer-events-none"
+        animate={{ width: "100%" }}
+        transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+      >
+        <div className="absolute bottom-0 pointer-events-auto">
+          <GlassSurface
+            width="max-content"
+            height="max-content"
+            borderRadius={9999}
+            className="p-2"
+            opacity={0.35}
+            brightness={40}
+            blur={12}
+          >
+            <button
+              onClick={() => router.back()}
+              className="flex items-center justify-center h-11 w-11 shrink-0 rounded-full bg-white/40 dark:bg-black/40 backdrop-blur-lg border border-black/10 dark:border-white/10 shadow-inner hover:bg-white/60 dark:hover:bg-black/60 transition-colors"
+              aria-label="Go back"
+            >
+              <ChevronLeft className="h-5 w-5 text-black dark:text-white" />
+            </button>
+          </GlassSurface>
+        </div>
+      </motion.header>
+    );
+  }
 
   return (
     <>
