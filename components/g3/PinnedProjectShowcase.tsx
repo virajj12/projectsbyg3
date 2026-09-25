@@ -134,7 +134,7 @@ export default function PinnedProjectShowcase({ projects }: { projects: G3Projec
 
                 <div className="mt-5">
                   <span className="g3-meta">
-                    {String(i + 1).padStart(2, "0")} — {p.category}
+                    {String(i + 1).padStart(2, "0")}
                   </span>
                   <h3
                     className="mt-2 text-2xl font-semibold tracking-tight"
@@ -142,11 +142,6 @@ export default function PinnedProjectShowcase({ projects }: { projects: G3Projec
                   >
                     {p.title}
                   </h3>
-                  {p.location && (
-                    <p className="mt-1 text-sm" style={{ color: "var(--g3-ink-faint)" }}>
-                      {p.location}
-                    </p>
-                  )}
                 </div>
               </Link>
             ))}
@@ -194,7 +189,6 @@ export default function PinnedProjectShowcase({ projects }: { projects: G3Projec
                 )}
               </div>
               <div className="mt-4">
-                <span className="g3-meta">{p.category}</span>
                 <h3
                   className="mt-1.5 text-xl font-semibold tracking-tight"
                   style={{ fontFamily: "var(--g3-font-display)", color: "var(--g3-ink)" }}

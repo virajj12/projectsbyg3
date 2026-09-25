@@ -12,6 +12,7 @@ import {
   G3_CATEGORIES
 } from "@/lib/g3-data";
 import Hero from "@/components/g3/Hero";
+import StickyLogo from "@/components/g3/StickyLogo";
 import ProjectCard from "@/components/g3/ProjectCard";
 import CategoryFilter from "@/components/g3/CategoryFilter";
 import dynamic from 'next/dynamic';
@@ -23,6 +24,8 @@ import { revealDelay } from "@/components/g3/motion";
 import { MaskedSection } from "@/components/g3/MaskedSection";
 import MaskText from "@/components/MaskText";
 import ScrollDrivenSlideIn from "@/components/g3/ScrollDrivenSlideIn";
+import { AnimatedThemeToggler } from "@/components/ui/animated-theme-toggler";
+import { G3SocialsDropdown } from "@/components/g3/G3SocialsDropdown";
 
 const PHILOSOPHY = [
   {
@@ -35,7 +38,7 @@ const PHILOSOPHY = [
   },
   {
     title: "Materials that age well",
-    body: "Coastal Karnataka is hard on buildings — salt, monsoon, sun. We specify for how something looks in year ten, not on handover day.",
+    body: "Coastal Karnataka is hard on buildings - salt, monsoon, sun. We specify for how something looks in year ten, not on handover day.",
   },
 ];
 
@@ -54,7 +57,7 @@ const FALLBACK_SERVICES = [
     title: "Exterior Design Consultancy",
     slug: "exterior-design-consultancy",
     summary: "Architectural and exterior planning and design consultancy.",
-    body: "Site study, massing, and the full architectural drawing set—providing expert design and planning while you handle the construction.",
+    body: "Site study, massing, and the full architectural drawing set - providing expert design and planning while you handle the construction.",
     iconUrl: null,
     iconAlt: null,
   }
@@ -111,11 +114,21 @@ export default async function G3Home({
     <>
       <Hero heroImage={homePage.heroImage} headline={headline} tagline={tagline} />
 
+      <div className="fixed top-0 right-0 p-6 md:p-8 z-[42] pointer-events-none">
+        <div className="pointer-events-auto flex items-center gap-2">
+          <G3SocialsDropdown className="flex p-2 shrink-0 items-center justify-center rounded-full bg-black/5 dark:bg-white/5 backdrop-blur-md border border-black/10 dark:border-white/10 hover:bg-black/10 dark:hover:bg-white/10 transition-colors text-[var(--g3-ink)]" />
+          <div className="bg-black/5 dark:bg-white/5 backdrop-blur-md rounded-full border border-black/10 dark:border-white/10 text-[var(--g3-ink)]">
+            <AnimatedThemeToggler />
+          </div>
+        </div>
+      </div>
 
-
-      <section id="services" className="relative w-full border-t border-[var(--g3-rule-faint)] !z-10 bg-[var(--g3-black)] g3-wood-surface">
-        <div className="pb-24 pt-32 md:pt-40">
-          <div className="mx-auto max-w-6xl px-6">
+      <div className="relative z-10 bg-background">
+        <StickyLogo />
+        
+        <section id="services" className="relative w-full border-t border-[var(--g3-rule-faint)] !z-10 bg-[var(--g3-black)] g3-wood-surface">
+          <div className="pb-24 pt-32 md:pt-40">
+            <div className="mx-auto max-w-6xl px-6">
             <div className="g3-meta mb-3 text-[var(--g3-ink)]">
               <MaskText text="What we do" />
             </div>
@@ -270,7 +283,7 @@ export default async function G3Home({
             <Reveal delay={0.1}>
               <p className="g3-body mt-6 max-w-xl">
                 Three fields to start. We&rsquo;ll call you back within two working days
-                — no automated sequence, no mailing list.
+                - no automated sequence, no mailing list.
               </p>
             </Reveal>
 
@@ -321,6 +334,7 @@ export default async function G3Home({
           </div>
         </div>
       </section>
+      </div>
     </>
   );
 }

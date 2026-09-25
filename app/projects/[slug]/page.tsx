@@ -95,7 +95,6 @@ export default async function ProjectDetail({ params }: { params: Promise<{ slug
 
         <div className="relative mx-auto w-full max-w-5xl px-6 pb-16 pt-32">
           <Reveal>
-            <span className="g3-meta">{project.category}</span>
             <h1 className="g3-display-lg mt-3" style={{ color: "var(--g3-ink)" }}>{project.title}</h1>
           </Reveal>
         </div>

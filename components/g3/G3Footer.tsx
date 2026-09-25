@@ -1,69 +1,88 @@
 "use client";
 
-/**
- * Footer on a wood surface (spec 3), with the infinite marquee from spec 3a —
- * one of the signature moments, chosen here because it is cheap, gives the
- * dark footer some life, and costs nothing on the animation budget (it is a
- * CSS transform loop, not a pinned ScrollTrigger).
- */
-
 import Link from "next/link";
-import { useReducedMotion } from "framer-motion";
-
-const TAGLINE = "G3 Builders & Architects — Exterior Consultancy · Interior Design · Execution — ";
+import { MailDropdown } from "@/components/ui/mail-dropdown";
 
 export default function G3Footer() {
-  const reduced = useReducedMotion();
-
   return (
-    <footer id="g3-footer" className="g3-wood-surface-deep relative overflow-hidden">
+    <footer id="g3-footer" className="relative overflow-hidden transition-colors duration-300">
+      
+      {/* Top Section - Follows Page Theme */}
+      <div className="bg-background text-foreground pt-16 md:pt-32 pb-6 md:pb-24 transition-colors duration-300">
+        <div className="mx-auto max-w-[90rem] px-6 lg:px-12 grid grid-cols-1 md:grid-cols-12 gap-12 lg:gap-8 text-center md:text-left">
+          
+          {/* Navigation */}
+          <div className="md:col-span-6 lg:col-span-6 font-medium text-lg space-y-3 flex flex-col items-center md:items-start w-full">
+            <div className="flex flex-col gap-3 items-center md:items-start">
+              <Link href="/" className="hover:text-muted-foreground transition-colors">Home</Link>
+              <Link href="/projects" className="hover:text-muted-foreground transition-colors">Projects</Link>
+              <Link href="/#services" className="hover:text-muted-foreground transition-colors">Services</Link>
+              <Link href="/#process" className="hover:text-muted-foreground transition-colors">Process</Link>
+              <Link href="/#about" className="hover:text-muted-foreground transition-colors">About</Link>
+            </div>
+          </div>
 
-      <div className="mx-auto grid max-w-6xl gap-10 px-6 py-14 sm:grid-cols-2 lg:grid-cols-4">
-        <div className="sm:col-span-2">
-          <p className="g3-display-md mb-3" style={{ color: "var(--g3-ink)" }}>
-            G3 Builders<br />&amp; Architects
-          </p>
-          <p className="g3-body max-w-sm">
-            Exterior design consultancy, interior planning and execution delivered end to end.
-          </p>
+          {/* Details */}
+          <div className="md:col-span-6 lg:col-span-6 space-y-6 flex flex-col items-center md:items-start w-full">
+            <div>
+              <address className="not-italic text-sm md:text-base leading-relaxed">
+                Moodbidri<br />
+                Coastal Karnataka<br />
+                India
+              </address>
+            </div>
+            <div>
+              <MailDropdown email="hey@verspektive.in">
+                <span className="text-sm md:text-base hover:underline cursor-pointer">hey@verspektive.in</span>
+              </MailDropdown>
+            </div>
+          </div>
         </div>
-
-        <div>
-          <p className="g3-meta mb-4">Explore</p>
-          <ul className="space-y-2 text-sm">
-            {[
-              ["Projects", "/projects"],
-              ["Services", "/#services"],
-              ["Process", "/#process"],
-              ["About", "/#about"],
-              ["Privacy Policy", "/privacy"],
-            ].map(([label, href]) => (
-              <li key={href}>
-                <Link href={href} style={{ color: "var(--g3-ink-soft)" }}>{label}</Link>
-              </li>
-            ))}
-          </ul>
-        </div>
-
-        <div>
-          <p className="g3-meta mb-4">Contact</p>
-          <ul className="space-y-2 text-sm" style={{ color: "var(--g3-ink-soft)" }}>
-            <li><a href="mailto:hey@verspektive.in">hey@verspektive.in</a></li>
-            <li>Moodbidri, Karnataka</li>
-          </ul>
+        
+        {/* Mobile Bottom Row (Inside White Area) */}
+        <div className="mt-16 flex flex-col md:hidden items-center gap-4 px-6 py-5 text-[11px] font-medium tracking-wide text-muted-foreground border-t border-black/10 dark:border-white/10">
+          <span>© {new Date().getFullYear()} G3 Builders & Architects</span>
+          <div className="flex items-center gap-6">
+            <Link href="/privacy" className="hover:text-foreground transition-colors">Privacy Policy</Link>
+            <a href="https://verspektive.in" target="_blank" rel="noreferrer" className="hover:text-foreground transition-colors">Website by VerspeKtive</a>
+          </div>
         </div>
       </div>
 
-      <div className="border-t px-6 py-6 text-center text-xs" style={{ borderColor: "var(--g3-rule-faint)", color: "var(--g3-ink-faint)" }}>
-        © {new Date().getFullYear()} G3 Builders &amp; Architects · A VerspeKtive company
+      {/* Bottom Section - Always Dark Grey & White text */}
+      <div className="bg-zinc-900 text-white pt-12 md:pt-16 pb-8 md:pb-0">
+        <div className="mx-auto max-w-[90rem] px-6 lg:px-12 flex flex-col">
+          
+          {/* MASSIVE LOGO - using Oswald, all one line */}
+          <div className="w-full flex justify-between items-center pointer-events-none pb-2">
+            <div 
+              className="w-full text-center uppercase tracking-tighter leading-none text-white"
+              style={{ 
+                fontFamily: "var(--font-oswald), sans-serif", 
+                fontWeight: 700,
+              }}
+            >
+              <div className="text-[7.5vw] md:text-[8vw] whitespace-nowrap w-full flex justify-between">
+                <span>G3</span>
+                <span>BUILDERS</span>
+                <span>&</span>
+                <span>ARCHITECTS</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        {/* Desktop Bottom Row */}
+        <div className="mt-8 hidden md:flex flex-row justify-between items-center gap-4 px-6 lg:px-12 py-5 text-xs font-medium tracking-wide text-zinc-400 border-t border-white/10 bg-black/20">
+          <span>© {new Date().getFullYear()} G3 Builders & Architects</span>
+          <div className="flex items-center gap-8">
+            <Link href="/privacy" className="hover:text-white transition-colors">Privacy Policy</Link>
+            <a href="https://verspektive.in" target="_blank" rel="noreferrer" className="hover:text-white transition-colors">Website by VerspeKtive</a>
+          </div>
+        </div>
       </div>
 
-      <style jsx>{`
-        @keyframes g3-marquee {
-          from { transform: translateX(0); }
-          to   { transform: translateX(-50%); }
-        }
-      `}</style>
     </footer>
   );
 }

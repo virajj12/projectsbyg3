@@ -34,8 +34,8 @@
   },
   {
     "id": 2,
-    "title": "Floating Sofa | Bajagoli",
-    "slug": "floating-sofa-bajagoli",
+    "title": "Traditional Lounge | Bajagoli",
+    "slug": "traditional-lounge-bajagoli",
     "category": "Interiors",
     "location": null,
     "sqft": null,
@@ -204,6 +204,51 @@
     "gallery": []
   },
   {
+    "id": 8,
+    "title": "Residence | Madanthyar",
+    "slug": "residence-madanthyar",
+    "category": "Concept",
+    "location": "Internal",
+    "sqft": null,
+    "year": 2024,
+    "status": "concept",
+    "clientName": "Internal Project",
+    "summary": "A modern residential project focused on elegant exteriors and functional spaces.",
+    "body": "A collection of architectural explorations by G3 Builders. These concepts focus on innovative structures, sustainable materials, and bold geometric forms.",
+    "featured": true,
+    "cover": {
+      "url": "/images/projects/G3 P2.jpg",
+      "alt": "G3 Concept Project",
+      "width": 2000,
+      "height": 1333,
+      "type": "image/jpeg",
+      "thumbnailUrl": null
+    }
+  },
+  {
+    "id": 9,
+    "title": "Residence | Byndoor",
+    "slug": "residence-byndoor",
+    "category": "Concept",
+    "location": "Internal",
+    "sqft": null,
+    "year": 2024,
+    "status": "concept",
+    "clientName": "Internal Project",
+    "summary": "A coastal residential design harmonizing with the natural surroundings of Byndoor.",
+    "body": "A collection of architectural explorations by G3 Builders. These concepts focus on innovative structures, sustainable materials, and bold geometric forms.",
+    "featured": true,
+    "cover": {
+      "url": "/images/projects/NKM 2.jpg",
+      "alt": "NKM Concept",
+      "width": 2000,
+      "height": 1333,
+      "type": "image/jpeg",
+      "thumbnailUrl": null,
+      "caption": "Structural visualization"
+    }
+  },
+  {
     "id": 7,
     "title": "Co-operative society | Madanthyar",
     "slug": "bank-office-layout",
@@ -253,51 +298,6 @@
         "caption": "Entrance layout"
       }
     ]
-  },
-  {
-    "id": 8,
-    "title": "Residence | Madanthyar",
-    "slug": "residence-madanthyar",
-    "category": "Concept",
-    "location": "Internal",
-    "sqft": null,
-    "year": 2024,
-    "status": "concept",
-    "clientName": "Internal Project",
-    "summary": "A modern residential project focused on elegant exteriors and functional spaces.",
-    "body": "A collection of architectural explorations by G3 Builders. These concepts focus on innovative structures, sustainable materials, and bold geometric forms.",
-    "featured": true,
-    "cover": {
-      "url": "/images/projects/G3 P2.jpg",
-      "alt": "G3 Concept Project",
-      "width": 2000,
-      "height": 1333,
-      "type": "image/jpeg",
-      "thumbnailUrl": null
-    }
-  },
-  {
-    "id": 9,
-    "title": "Residence | Byndoor",
-    "slug": "residence-byndoor",
-    "category": "Concept",
-    "location": "Internal",
-    "sqft": null,
-    "year": 2024,
-    "status": "concept",
-    "clientName": "Internal Project",
-    "summary": "A coastal residential design harmonizing with the natural surroundings of Byndoor.",
-    "body": "A collection of architectural explorations by G3 Builders. These concepts focus on innovative structures, sustainable materials, and bold geometric forms.",
-    "featured": true,
-    "cover": {
-      "url": "/images/projects/NKM 2.jpg",
-      "alt": "NKM Concept",
-      "width": 2000,
-      "height": 1333,
-      "type": "image/jpeg",
-      "thumbnailUrl": null,
-      "caption": "Structural visualization"
-    }
   },
   {
     "id": 10,

@@ -1,30 +1,41 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import Image from "next/image";
+
+const words = ["G3", "Builders", "&", "Architects"];
 
 export default function Loader({ onComplete }: { onComplete: () => void }) {
-  const [phase, setPhase] = useState<"animating" | "logo-fading" | "fading-out">("animating");
+  const [index, setIndex] = useState(0);
+  const [phase, setPhase] = useState<"animating" | "text-hidden" | "fading-out">("animating");
 
   useEffect(() => {
-    // 1. Logo slides up (takes ~0.7s).
-    // 2. Start logo fade out at 0.8s
-    const logoFadeOutTimer = setTimeout(() => {
-      setPhase("logo-fading");
-    }, 800);
+    // Flash each word for 350ms (hard cut)
+    const interval = setInterval(() => {
+      setIndex((prev) => {
+        if (prev < words.length - 1) return prev + 1;
+        clearInterval(interval);
+        return prev;
+      });
+    }, 350);
 
-    // 3. Start background fade out at 1.1s
+    // Hide the final word at 1.4s (350ms * 4 words)
+    const textHideTimer = setTimeout(() => {
+      setPhase("text-hidden");
+    }, 1400);
+
+    // Fade out the whole screen shortly after the text is gone
     const backgroundFadeOutTimer = setTimeout(() => {
       setPhase("fading-out");
-    }, 1100);
-
-    // 4. Completely unmount at 1.6s
-    const removeTimer = setTimeout(() => {
-      onComplete();
     }, 1600);
 
+    // Completely unmount at 2.3s
+    const removeTimer = setTimeout(() => {
+      onComplete();
+    }, 2300);
+
     return () => {
-      clearTimeout(logoFadeOutTimer);
+      clearInterval(interval);
+      clearTimeout(textHideTimer);
       clearTimeout(backgroundFadeOutTimer);
       clearTimeout(removeTimer);
     };
@@ -32,43 +43,24 @@ export default function Loader({ onComplete }: { onComplete: () => void }) {
 
   return (
     <>
-      <style>
-        {`
-          @keyframes slideUpMask {
-            0% { transform: translateY(110%); }
-            100% { transform: translateY(0); }
-          }
-          .animate-slide-up-mask {
-            animation: slideUpMask 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-          }
-        `}
-      </style>
       {/* Background Layer */}
       <div
-        className={`fixed inset-0 z-[999] bg-black pointer-events-none transition-opacity duration-500 ease-in-out ${
+        className={`fixed inset-0 z-[999] bg-black pointer-events-none transition-opacity duration-700 ease-in-out ${
           phase === "fading-out" ? "opacity-0" : "opacity-100"
         }`}
       />
       
-      {/* Logo Layer */}
+      {/* Text Layer */}
       <div
-        className={`fixed inset-0 z-[1000] flex items-center justify-center pointer-events-none transition-opacity duration-300 ease-in-out ${
-          phase === "logo-fading" || phase === "fading-out" ? "opacity-0" : "opacity-100"
+        className={`fixed inset-0 z-[1000] flex items-center justify-center pointer-events-none ${
+          phase !== "animating" ? "opacity-0" : "opacity-100"
         }`}
       >
-        <div className="overflow-hidden">
-          <div
-            className="relative h-24 w-48 sm:h-32 sm:w-64 md:h-40 md:w-80 flex-shrink-0 animate-slide-up-mask"
-          >
-            <Image
-              src="/G3 White & Grey-01-01.png"
-              alt="G3 Builders Logo"
-              fill
-              sizes="(max-width: 768px) 100vw, 33vw"
-              className="object-contain"
-              priority
-            />
-          </div>
+        <div 
+          className="text-3xl md:text-5xl lg:text-6xl font-bold text-white tracking-tighter"
+          style={{ fontFamily: "var(--g3-font-display)" }}
+        >
+          {words[index]}
         </div>
       </div>
     </>

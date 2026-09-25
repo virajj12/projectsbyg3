@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter, Outfit, JetBrains_Mono } from "next/font/google";
+import { Inter, Outfit, JetBrains_Mono, Oswald } from "next/font/google";
 import "./globals.css";
 import "./g3-theme.css";
 import "wanted-sans/fonts/webfonts/variable/split/WantedSansVariable.css";
@@ -30,6 +30,12 @@ const jetbrains = JetBrains_Mono({
   variable: "--font-jetbrains-mono",
   display: "swap",
   fallback: ["ui-monospace", "SFMono-Regular", "monospace"],
+});
+
+const oswald = Oswald({
+  subsets: ["latin"],
+  variable: "--font-oswald",
+  display: "swap",
 });
 
 export const metadata: Metadata = {
@@ -71,7 +77,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`${inter.variable} ${outfit.variable} antialiased min-h-screen w-full h-full bg-background text-foreground`}>
+      <body className={`${inter.variable} ${outfit.variable} ${oswald.variable} antialiased min-h-screen w-full h-full bg-background text-foreground`}>
         <ThemeProvider
           attribute="class"
           defaultTheme="dark"

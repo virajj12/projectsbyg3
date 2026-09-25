@@ -9,6 +9,7 @@
  * Pages add bottom padding via .g3-has-sticky-cta so it never overlaps content.
  */
 
+import { useState, useEffect } from "react";
 import { usePathname } from "next/navigation";
 import { CalendarCheck } from "lucide-react";
 import { useGlobalLoader } from "@/components/global-loader-provider";
@@ -16,6 +17,23 @@ import { useGlobalLoader } from "@/components/global-loader-provider";
 export default function StickyMobileCTA() {
   const pathname = usePathname();
   const { loading } = useGlobalLoader();
+  const [isHidden, setIsHidden] = useState(false);
+
+  useEffect(() => {
+    if (loading) return;
+    const footer = document.getElementById("g3-footer");
+    if (!footer) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        setIsHidden(entries[0].isIntersecting);
+      },
+      { threshold: 0.1 }
+    );
+
+    observer.observe(footer);
+    return () => observer.disconnect();
+  }, [pathname, loading]);
   
   if (pathname === "/contact" || pathname.startsWith("/projects") || loading) return null;
 
@@ -23,7 +41,7 @@ export default function StickyMobileCTA() {
 
   return (
     <div
-      className="fixed inset-x-0 bottom-0 z-[41] flex border-t md:hidden backdrop-blur-md"
+      className={`fixed inset-x-0 bottom-0 z-[41] flex border-t md:hidden backdrop-blur-md transition-transform duration-300 ${isHidden ? 'translate-y-[100%]' : 'translate-y-0'}`}
       style={{
         backgroundColor: "color-mix(in srgb, var(--g3-black) 80%, transparent)",
         borderColor: "var(--g3-rule)",

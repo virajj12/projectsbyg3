@@ -49,9 +49,9 @@ const FALLBACK_IMAGES = [
 ];
 
 function ParallaxImage({ src, pos, progress, index, mouseX }: { src: string; pos: Position; progress: any; index: number; mouseX?: MotionValue<number> }) {
-  // Phase 1 is [0, 0.2] of the global MasterSequence scroll
-  const y = useTransform(progress, [0, 0.2], pos.yRange);
-  
+  // Phase 1 is [0, 0.25] of the global MasterSequence scroll
+  const y = useTransform(progress, [0, 0.25], pos.yRange);
+
   // Hover parallax based on mouse X. Inverted direction (negative factor).
   const factor = ((index % 3) + 1) * -15; // -15, -30, or -45px max offset
   const x = mouseX ? useTransform(mouseX, (v: number) => v * factor) : 0;
@@ -72,8 +72,8 @@ function ParallaxImage({ src, pos, progress, index, mouseX }: { src: string; pos
 
 function KineticStageTitle({ title, isActive }: { title: string, isActive: boolean }) {
   return (
-    <motion.div 
-      className="shrink-0 stage-title-width" 
+    <motion.div
+      className="shrink-0 stage-title-width"
       animate={{ opacity: isActive ? 1 : 0.3 }}
       transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
     >
@@ -86,8 +86,8 @@ function KineticStageTitle({ title, isActive }: { title: string, isActive: boole
 
 function KineticStageContent({ s, isActive }: { s: any, isActive: boolean }) {
   return (
-    <motion.div 
-      className="absolute top-0 left-0 w-full pointer-events-none" 
+    <motion.div
+      className="absolute top-0 left-0 w-full pointer-events-none"
       animate={{ opacity: isActive ? 1 : 0 }}
       transition={{ duration: 0.6 }}
     >
@@ -108,8 +108,8 @@ function KineticStageContent({ s, isActive }: { s: any, isActive: boolean }) {
 
 function KineticStageNumber({ index, isActive }: { index: number, isActive: boolean }) {
   return (
-    <motion.span 
-      className="absolute right-full mr-4 md:mr-6 top-1/2 -translate-y-1/2 text-sm md:text-base tracking-widest text-white/70 font-mono" 
+    <motion.span
+      className="absolute right-full mr-4 md:mr-6 top-1/2 -translate-y-1/2 text-sm md:text-base tracking-widest text-white/70 font-mono"
       animate={{ opacity: isActive ? 1 : 0 }}
       transition={{ duration: 0.6 }}
     >
@@ -144,20 +144,26 @@ export default function MasterSequence({ projects, children }: MasterSequencePro
   };
 
   // --- PHASE 1: PORTFOLIO OPACITY ---
-  const portfolioOpacity = useTransform(scrollYProgress, [0.18, 0.23], [1, 0]);
-  const titleOpacity = useTransform(scrollYProgress, [0.22, 0.28], [1, 0]);
+  const portfolioOpacity = useTransform(scrollYProgress, [0.25, 0.30], [1, 0]);
+  const titleOpacity = useTransform(scrollYProgress, [0.26, 0.31], [1, 0]);
   const titleY = useTransform(entranceProgress, [0, 1], ["-30vh", "0vh"]);
 
   // --- PHASE 2: IMMERSIVE IMAGE TAKEOVER ---
-  // The image starts as a "card" at the center but end, and is part of the parallax.
-  const imgWidth = useTransform(scrollYProgress, [0.2, 0.35], ["28vw", "100vw"]);
-  const imgHeight = useTransform(scrollYProgress, [0.2, 0.35], ["22vh", "100vh"]);
-  const imgTop = useTransform(scrollYProgress, [0.2, 0.35], ["75vh", "0vh"]);
-  const imgLeft = useTransform(scrollYProgress, [0.2, 0.35], ["36vw", "0vw"]);
-  const imgRadius = useTransform(scrollYProgress, [0.2, 0.35], ["12px", "0px"]);
-  const imgScale = useTransform(scrollYProgress, [0.2, 0.6], [1, 1.05]);
-  const imgY = useTransform(scrollYProgress, [0, 0.2, 0.35], ["30vh", "0vh", "0vh"]);
-  const imgZIndex = useTransform(scrollYProgress, (v) => (v > 0.21 ? 35 : 10));
+  // The image starts as a "card" at the bottom right.
+  // It moves up to the center from 0 to 0.25 without zooming, alongside the parallax images.
+  // Then from 0.25 to 0.40 it expands to take over the screen.
+  const imgWidth = useTransform(scrollYProgress, [0, 0.25, 0.40], ["28vw", "28vw", "100vw"]);
+  const imgHeight = useTransform(scrollYProgress, [0, 0.25, 0.40], ["22vh", "22vh", "100vh"]);
+  // Starts at 100vh, reaches 60vh (40% from bottom) before expanding.
+  const imgTop = useTransform(scrollYProgress, [0, 0.25, 0.40], ["100vh", "60vh", "0vh"]);
+  const imgLeft = useTransform(scrollYProgress, [0, 0.25, 0.40], ["45vw", "45vw", "0vw"]);
+  const imgRadius = useTransform(scrollYProgress, [0, 0.25, 0.40], ["12px", "12px", "0px"]);
+  const imgScale = useTransform(scrollYProgress, [0.25, 0.6], [1, 1.05]);
+  const imgY = useTransform(scrollYProgress, [0, 1], ["0vh", "0vh"]);
+
+  // Z-index 25 ensures it is always in front of the parallax grid (z-index 20).
+  // At 0.24, right before expanding, it jumps to 35 to expand *over* the title text (z-index 30).
+  const imgZIndex = useTransform(scrollYProgress, (v) => (v > 0.24 ? 35 : 25));
 
   const panelY = useTransform(scrollYProgress, [0.45, 0.6], ["100vh", "0vh"]);
   const ctaDisplay = useTransform(scrollYProgress, [0.95, 0.96], ["none", "none"]);
@@ -176,7 +182,7 @@ export default function MasterSequence({ projects, children }: MasterSequencePro
       if (activeIndex !== 4) setActiveIndex(4);
       return;
     }
-    
+
     // Each stage gets a 0.07 window (0.35 total range for 5 stages)
     const index = Math.floor((latest - 0.60) / 0.07);
     const safeIndex = Math.max(0, Math.min(4, index));
@@ -199,9 +205,9 @@ export default function MasterSequence({ projects, children }: MasterSequencePro
   }
 
   return (
-    <div 
-      ref={containerRef} 
-      className="relative z-20 w-full bg-[var(--g3-black)]" 
+    <div
+      ref={containerRef}
+      className="relative z-20 w-full bg-[var(--g3-black)]"
       style={{ height: "600vh" }}
       onMouseMove={handleMouseMove}
     >
@@ -213,8 +219,9 @@ export default function MasterSequence({ projects, children }: MasterSequencePro
       <div className="sticky top-0 h-screen w-full overflow-hidden">
         {/* Explicit sibling background to ensure mix-blend-difference works reliably */}
         <div className="absolute inset-0 bg-[var(--g3-black)] pointer-events-none" />
-        
-        <style dangerouslySetInnerHTML={{ __html: `
+
+        <style dangerouslySetInnerHTML={{
+          __html: `
           /* MOBILE (Default) */
           .ms-img-0 { top: 0%; left: -5%; width: 45vw; height: 60vw; }
           .ms-img-1 { top: 42%; left: -5%; width: 28vw; height: 35vw; }
@@ -233,7 +240,7 @@ export default function MasterSequence({ projects, children }: MasterSequencePro
             .ms-img-0 { top: 5%; left: 0%; width: 25vw; height: 45vh; }
             .ms-img-1 { top: 40%; left: 18%; width: 20vw; height: 28vh; }
             .ms-img-2 { top: 60%; left: 0%; width: 20vw; height: 35vh; }
-            .ms-img-3 { top: 0%; left: 35%; width: 18vw; height: 40vh; }
+            .ms-img-3 { top: 0%; left: 55%; width: 18vw; height: 40vh; }
             .ms-img-4 { top: 5%; right: 10%; width: 22vw; height: 20vh; }
             .ms-img-5 { top: 45%; right: 20%; width: 18vw; height: 27vh; }
             .ms-img-6 { top: 50%; right: 0%; width: 25vw; height: 50vh; }
@@ -266,7 +273,7 @@ export default function MasterSequence({ projects, children }: MasterSequencePro
               priority
             />
           </motion.div>
-          <div 
+          <div
             className="absolute inset-0 pointer-events-none mix-blend-overlay opacity-30"
             style={{
               backgroundImage: "linear-gradient(to right, rgba(255,255,255,0.1) 1px, transparent 1px), linear-gradient(to bottom, rgba(255,255,255,0.1) 1px, transparent 1px)",
@@ -286,7 +293,7 @@ export default function MasterSequence({ projects, children }: MasterSequencePro
           })}
         </motion.div>
 
-        <motion.div 
+        <motion.div
           className="absolute inset-0 z-30 pointer-events-none flex flex-col items-center pt-[30vh] mix-blend-difference text-white"
           style={{ opacity: titleOpacity, y: titleY }}
         >
@@ -296,7 +303,7 @@ export default function MasterSequence({ projects, children }: MasterSequencePro
         </motion.div>
 
         {/* Phase 4 Content */}
-        <motion.div 
+        <motion.div
           className="absolute inset-0 z-40 text-white flex flex-col justify-center will-change-transform overflow-hidden"
           style={{ y: panelY }}
         >
@@ -307,11 +314,11 @@ export default function MasterSequence({ projects, children }: MasterSequencePro
           <div className="absolute inset-0 opacity-[0.03] pointer-events-none z-10" style={{ backgroundImage: 'linear-gradient(#ffffff 1px, transparent 1px), linear-gradient(90deg, #ffffff 1px, transparent 1px)', backgroundSize: '100px 100px' }} />
 
           <div className="relative w-full h-[100dvh] md:h-[500px] z-20 -translate-y-8 md:-translate-y-24">
-            
+
             {/* TOP HALF: Titles (Above the line) */}
             <div className="absolute bottom-[65%] md:bottom-[50%] left-0 w-full pb-4 md:pb-8">
-              <motion.div 
-                className="flex items-end whitespace-nowrap w-max stage-slider" 
+              <motion.div
+                className="flex items-end whitespace-nowrap w-max stage-slider"
                 animate={{ x: `calc(var(--stage-offset) - calc(var(--stage-width) * ${activeIndex}))` }}
                 transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
               >

@@ -6,6 +6,7 @@ import { ChevronRight, ChevronLeft } from "lucide-react";
 import { getProjects } from "@/lib/g3-data";
 import { Reveal } from "@/components/g3/Reveal";
 import { AnimatedThemeToggler } from "@/components/ui/animated-theme-toggler";
+import { G3SocialsDropdown } from "@/components/g3/G3SocialsDropdown";
 import dynamic from 'next/dynamic';
 
 const MouseScaleGallery = dynamic(() => import("@/components/g3/MouseScaleGallery"));
@@ -37,8 +38,11 @@ export default async function ProjectsPage() {
         >
           <ChevronLeft className="w-8 h-8 md:w-10 md:h-10" />
         </Link>
-        <div className="pointer-events-auto bg-black/5 dark:bg-white/5 backdrop-blur-md rounded-full border border-black/10 dark:border-white/10 text-[var(--g3-ink)]">
-          <AnimatedThemeToggler />
+        <div className="pointer-events-auto flex items-center gap-2">
+          <G3SocialsDropdown className="flex p-2 shrink-0 items-center justify-center rounded-full bg-black/5 dark:bg-white/5 backdrop-blur-md border border-black/10 dark:border-white/10 hover:bg-black/10 dark:hover:bg-white/10 transition-colors text-[var(--g3-ink)]" />
+          <div className="bg-black/5 dark:bg-white/5 backdrop-blur-md rounded-full border border-black/10 dark:border-white/10 text-[var(--g3-ink)]">
+            <AnimatedThemeToggler />
+          </div>
         </div>
       </div>
 
