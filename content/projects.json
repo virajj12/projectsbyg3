@@ -1,20 +1,20 @@
 [
   {
     "id": 1,
-    "title": "Seaside Villa",
-    "slug": "seaside-villa",
-    "category": "Residential",
-    "location": "Mangaluru, Karnataka",
-    "sqft": 4500,
-    "year": 2023,
+    "title": "Vintage Library | Bajagoli",
+    "slug": "vintage-library-renovation",
+    "category": "Interiors",
+    "location": "Confidential",
+    "sqft": 450,
+    "year": 2024,
     "status": "completed",
-    "clientName": null,
-    "summary": "A modern coastal residence designed for seamless indoor-outdoor living.",
-    "body": "Located along the coast of Mangaluru, this 4500 sqft residence explores the relationship between heavy laterite walls and light, open living spaces. The design prioritizes cross-ventilation and deep overhangs to handle the heavy monsoon.",
+    "clientName": "Private Client",
+    "summary": "Transformation of a room in an old house into a classic, quiet library space.",
+    "body": "This project involved renovating a room in a heritage house into a premium, vintage-inspired library. The space was redesigned to maximize natural light while providing extensive shelving and comfortable reading areas.",
     "featured": true,
     "cover": {
-      "url": "/images/projects/seaside-villa-cover.jpg",
-      "alt": "Seaside Villa exterior",
+      "url": "/images/projects/Library 1.jpg",
+      "alt": "Library Interior View 1",
       "width": 2000,
       "height": 1333,
       "type": "image/jpeg",
@@ -22,13 +22,338 @@
     },
     "gallery": [
       {
-        "url": "/images/projects/seaside-villa-gallery-1.jpg",
-        "alt": "Living room interior",
+        "url": "/images/projects/Library 2.jpg",
+        "alt": "Library Interior View 2",
         "width": 2000,
         "height": 1333,
         "type": "image/jpeg",
         "thumbnailUrl": null,
-        "caption": "The main living area"
+        "caption": "Detailed view of the reading area"
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "title": "Floating Sofa | Bajagoli",
+    "slug": "floating-sofa",
+    "category": "Interiors",
+    "location": null,
+    "sqft": null,
+    "year": 2024,
+    "status": "completed",
+    "clientName": "Private Client",
+    "summary": "Playground equipment installation concept.",
+    "body": "Design and installation of a Sea Saw play area.",
+    "featured": true,
+    "cover": {
+      "url": "/images/projects/Sea saw.jpg",
+      "alt": "Sea Saw Project",
+      "width": 2000,
+      "height": 1333,
+      "type": "image/jpeg",
+      "thumbnailUrl": null
+    },
+    "gallery": []
+  },
+  {
+    "id": 3,
+    "title": "Premium Salon | Alangar",
+    "slug": "premium-salon-interior",
+    "category": "Interiors",
+    "location": "Urban Center",
+    "sqft": 1200,
+    "year": 2023,
+    "status": "completed",
+    "clientName": "Premium Beauty Salon",
+    "summary": "A luxurious and modern salon interior designed to offer a premium client experience.",
+    "body": "Designed with luxury and comfort in mind, this premium salon features bespoke styling stations, sophisticated lighting, and a cohesive material palette that creates a relaxing yet upscale environment.",
+    "featured": true,
+    "cover": {
+      "url": "/images/projects/Salon 1.jpg",
+      "alt": "Salon Interior Main",
+      "width": 2000,
+      "height": 1333,
+      "type": "image/jpeg",
+      "thumbnailUrl": null
+    },
+    "gallery": [
+      {
+        "url": "/images/projects/Salon 2.jpg",
+        "alt": "Salon Styling Station",
+        "width": 2000,
+        "height": 1333,
+        "type": "image/jpeg",
+        "thumbnailUrl": null,
+        "caption": "Styling station details"
+      },
+      {
+        "url": "/images/projects/Salon 3.jpg",
+        "alt": "Salon Waiting Area",
+        "width": 2000,
+        "height": 1333,
+        "type": "image/jpeg",
+        "thumbnailUrl": null,
+        "caption": "Client waiting area"
+      }
+    ]
+  },
+  {
+    "id": 4,
+    "title": "Residence | Mantradi",
+    "slug": "residence-mantradi",
+    "category": "Residential",
+    "location": null,
+    "sqft": 3500,
+    "year": 2024,
+    "status": "completed",
+    "clientName": "Private Client",
+    "summary": "Modern residential structure with optimal spatial flow.",
+    "body": "This comprehensive residential plan showcases a seamless flow between living, dining, and private spaces. The design emphasizes natural light, cross-ventilation, and modern aesthetic principles.",
+    "featured": true,
+    "cover": {
+      "url": "/images/projects/Mantradi 1.jpg",
+      "alt": "Residence Plan View 1",
+      "width": 2000,
+      "height": 1333,
+      "type": "image/jpeg",
+      "thumbnailUrl": null
+    },
+    "gallery": [
+      {
+        "url": "/images/projects/Mantradi 2.jpg",
+        "alt": "Residence Plan View 2",
+        "width": 2000,
+        "height": 1333,
+        "type": "image/jpeg",
+        "thumbnailUrl": null,
+        "caption": "Living area layout"
+      },
+      {
+        "url": "/images/projects/Mantradi 3.jpg",
+        "alt": "Residence Plan View 3",
+        "width": 2000,
+        "height": 1333,
+        "type": "image/jpeg",
+        "thumbnailUrl": null,
+        "caption": "Kitchen and dining"
+      },
+      {
+        "url": "/images/projects/Mantradi 4.jpg",
+        "alt": "Residence Plan View 4",
+        "width": 2000,
+        "height": 1333,
+        "type": "image/jpeg",
+        "thumbnailUrl": null,
+        "caption": "Master bedroom"
+      },
+      {
+        "url": "/images/projects/Mantradi 5.jpg",
+        "alt": "Residence Plan View 5",
+        "width": 2000,
+        "height": 1333,
+        "type": "image/jpeg",
+        "thumbnailUrl": null,
+        "caption": "Exterior elevation"
+      }
+    ]
+  },
+  {
+    "id": 5,
+    "title": "Namma Bantwal Studio | B.C Road",
+    "slug": "studio-kitchen-design",
+    "category": "Interiors",
+    "location": "Studio Apartment",
+    "sqft": 250,
+    "year": 2023,
+    "status": "completed",
+    "clientName": "Studio Owner",
+    "summary": "A highly functional and aesthetically pleasing studio kitchen with smart storage solutions.",
+    "body": "Designed for a compact studio space, this kitchen maximizes utility without compromising on style. It features modern appliances, concealed storage, and a sleek minimal design.",
+    "featured": true,
+    "cover": {
+      "url": "/images/projects/Studio(kitchen).jpg",
+      "alt": "Studio Kitchen Interior",
+      "width": 2000,
+      "height": 1333,
+      "type": "image/jpeg",
+      "thumbnailUrl": null
+    },
+    "gallery": []
+  },
+  {
+    "id": 6,
+    "title": "TV Unit Design | Ujire",
+    "slug": "tv-unit-design",
+    "category": "Interiors",
+    "location": null,
+    "sqft": null,
+    "year": 2024,
+    "status": "completed",
+    "clientName": "Private Client",
+    "summary": "Custom living room TV unit design and execution.",
+    "body": "A sleek, custom-designed TV unit featuring modern storage solutions.",
+    "featured": true,
+    "cover": {
+      "url": "/images/projects/TV.jpg",
+      "alt": "TV Unit Design",
+      "width": 2000,
+      "height": 1333,
+      "type": "image/jpeg",
+      "thumbnailUrl": null
+    },
+    "gallery": []
+  },
+  {
+    "id": 7,
+    "title": "Co-operative society | Madanthyar",
+    "slug": "bank-office-layout",
+    "category": "Commercial",
+    "location": "City Center",
+    "sqft": 4000,
+    "year": 2024,
+    "status": "completed",
+    "clientName": "Financial Institution",
+    "summary": "Structural and spatial planning for a corporate bank office, focusing on security and workflow.",
+    "body": "This bank office layout is meticulously planned to optimize both employee workflow and customer experience. The design includes secure zones, open banking halls, and private consultation rooms.",
+    "featured": true,
+    "cover": {
+      "url": "/images/projects/Bank 1.jpg",
+      "alt": "Bank Office Floor Plan",
+      "width": 2000,
+      "height": 1333,
+      "type": "image/jpeg",
+      "thumbnailUrl": null
+    },
+    "gallery": [
+      {
+        "url": "/images/projects/Bank 2.jpg",
+        "alt": "Bank Office Details",
+        "width": 2000,
+        "height": 1333,
+        "type": "image/jpeg",
+        "thumbnailUrl": null,
+        "caption": "Customer interaction area"
+      },
+      {
+        "url": "/images/projects/Bank 3.jpg",
+        "alt": "Bank Secure Zone",
+        "width": 2000,
+        "height": 1333,
+        "type": "image/jpeg",
+        "thumbnailUrl": null,
+        "caption": "Secure operations zone"
+      },
+      {
+        "url": "/images/projects/Bank 4.jpg",
+        "alt": "Bank Exterior/Entry",
+        "width": 2000,
+        "height": 1333,
+        "type": "image/jpeg",
+        "thumbnailUrl": null,
+        "caption": "Entrance layout"
+      }
+    ]
+  },
+  {
+    "id": 8,
+    "title": "Residence | Madanthyar",
+    "slug": "g3-architectural-concepts",
+    "category": "Concept",
+    "location": "Internal",
+    "sqft": null,
+    "year": 2024,
+    "status": "concept",
+    "clientName": "Internal Project",
+    "summary": "Exploratory architectural and structural concepts pushing the boundaries of modern design.",
+    "body": "A collection of architectural explorations by G3 Builders. These concepts focus on innovative structures, sustainable materials, and bold geometric forms.",
+    "featured": true,
+    "cover": {
+      "url": "/images/projects/G3 P2.jpg",
+      "alt": "G3 Concept Project",
+      "width": 2000,
+      "height": 1333,
+      "type": "image/jpeg",
+      "thumbnailUrl": null
+    }
+  },
+  {
+    "id": 9,
+    "title": "Residence | Byndoor",
+    "slug": "g3-architectural-concepts",
+    "category": "Concept",
+    "location": "Internal",
+    "sqft": null,
+    "year": 2024,
+    "status": "concept",
+    "clientName": "Internal Project",
+    "summary": "Exploratory architectural and structural concepts pushing the boundaries of modern design.",
+    "body": "A collection of architectural explorations by G3 Builders. These concepts focus on innovative structures, sustainable materials, and bold geometric forms.",
+    "featured": true,
+    "cover": {
+      "url": "/images/projects/NKM 2.jpg",
+      "alt": "NKM Concept",
+      "width": 2000,
+      "height": 1333,
+      "type": "image/jpeg",
+      "thumbnailUrl": null,
+      "caption": "Structural visualization"
+    }
+  },
+  {
+    "id": 10,
+    "title": "Floor Plan | Mantradi",
+    "slug": "floor-plan-mantradi",
+    "category": "Residential",
+    "location": null,
+    "sqft": 3500,
+    "year": 2024,
+    "status": "completed",
+    "clientName": "Private Client",
+    "summary": "Floor plan details for the Mantradi residence.",
+    "body": "Detailed floor plan illustrating layout and space utilization.",
+    "featured": true,
+    "cover": {
+      "url": "/images/projects/Mantradi 6.jpg",
+      "alt": "Residence Plan View 6",
+      "width": 2000,
+      "height": 1333,
+      "type": "image/jpeg",
+      "thumbnailUrl": null,
+      "caption": "Floor plan details"
+    },
+    "gallery": []
+  },
+  {
+    "id": 11,
+    "title": "Electrical plan | Mantradi",
+    "slug": "electrical-plan-mantradi",
+    "category": "Residential",
+    "location": null,
+    "sqft": 3500,
+    "year": 2024,
+    "status": "completed",
+    "clientName": "Private Client",
+    "summary": "Electrical layout for the Mantradi residence.",
+    "body": "Comprehensive electrical planning ensuring safety and efficiency.",
+    "featured": true,
+    "cover": {
+      "url": "/images/projects/Mantradi 7.jpg",
+      "alt": "Residence Plan View 7",
+      "width": 2000,
+      "height": 1333,
+      "type": "image/jpeg",
+      "thumbnailUrl": null,
+      "caption": "Sectional view"
+    },
+    "gallery": [
+      {
+        "url": "/images/projects/Mantradi 9.jpg",
+        "alt": "Residence Plan View 9",
+        "width": 2000,
+        "height": 1333,
+        "type": "image/jpeg",
+        "thumbnailUrl": null,
+        "caption": "Site plan"
       }
     ]
   }

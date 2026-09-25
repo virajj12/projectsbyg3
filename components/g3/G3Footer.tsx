@@ -54,6 +54,7 @@ export default function G3Footer() {
               ["Services", "/services"],
               ["Process", "/process"],
               ["About", "/about"],
+              ["Privacy Policy", "/privacy"],
             ].map(([label, href]) => (
               <li key={href}>
                 <Link href={href} style={{ color: "var(--g3-ink-soft)" }}>{label}</Link>
@@ -65,7 +66,7 @@ export default function G3Footer() {
         <div>
           <p className="g3-meta mb-4">Contact</p>
           <ul className="space-y-2 text-sm" style={{ color: "var(--g3-ink-soft)" }}>
-            <li><a href="mailto:verspektive@gmail.com">verspektive@gmail.com</a></li>
+            <li><a href="mailto:hey@verspektive.in">hey@verspektive.in</a></li>
             <li>Moodbidri, Karnataka</li>
           </ul>
         </div>

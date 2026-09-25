@@ -14,6 +14,7 @@
 
 import { useState } from "react";
 import { Check, Loader2 } from "lucide-react";
+import Link from "next/link";
 
 const PROJECT_TYPES = ["Residential", "Commercial", "Interiors", "Renovation", "Not sure yet"];
 const BUDGETS = ["Under ₹25L", "₹25L – ₹50L", "₹50L – ₹1Cr", "₹1Cr – ₹3Cr", "Above ₹3Cr", "Not sure yet"];
@@ -143,6 +144,9 @@ export default function InquiryForm() {
       )}
 
       <div className="sm:col-span-2">
+        <p className="mb-4 text-xs leading-relaxed" style={{ color: "var(--g3-ink-faint)" }}>
+          By submitting this form, you agree that we may use the information provided to respond to your enquiry. See our <Link href="/privacy" className="underline underline-offset-4 hover:opacity-70 transition-opacity" style={{ color: "var(--g3-ink)" }}>Privacy Policy</Link>.
+        </p>
         <button
           type="submit"
           disabled={!ready || status === "sending"}

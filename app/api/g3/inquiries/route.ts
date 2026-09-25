@@ -55,8 +55,8 @@ export async function POST(req: Request) {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        from: "G3 Inquiries <onboarding@resend.dev>", // Default resend dev email or use custom domain if configured
-        to: ["verspektive@gmail.com"], // Match the EMAIL constant in page.tsx
+        from: "G3 Inquiries <hey@verspektive.in>", // Default resend dev email or use custom domain if configured
+        to: ["hey@verspektive.in"], // Match the EMAIL constant in page.tsx
         subject: `New G3 Inquiry from ${name}`,
         html: html,
         reply_to: email,

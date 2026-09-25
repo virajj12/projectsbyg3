@@ -60,7 +60,7 @@ const LOCAL_BUSINESS = {
     addressRegion: "Karnataka",
     addressCountry: "IN",
   },
-  email: "verspektive@gmail.com",
+  email: "hey@verspektive.in",
   parentOrganization: { "@type": "Organization", name: "VerspeKtive" },
 };
 

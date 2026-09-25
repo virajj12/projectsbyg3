@@ -61,7 +61,7 @@ const FALLBACK_SERVICES = [
   }
 ];
 
-const EMAIL = "verspektive@gmail.com";
+const EMAIL = "hey@verspektive.in";
 
 function relatedCategory(title: string): string | null {
   const t = title.toLowerCase();

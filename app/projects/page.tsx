@@ -3,30 +3,29 @@ export const runtime = 'edge';
 import { Suspense } from "react";
 import Link from "next/link";
 import { ChevronRight, ChevronLeft } from "lucide-react";
-import { getProjects, G3_CATEGORIES } from "@/lib/g3-data";
-import CategoryFilter from "@/components/g3/CategoryFilter";
-import ProjectCard from "@/components/g3/ProjectCard";
-import { Reveal, RevealImage } from "@/components/g3/Reveal";
-import { revealDelay } from "@/components/g3/motion";
+import { getProjects } from "@/lib/g3-data";
+import { Reveal } from "@/components/g3/Reveal";
 import { AnimatedThemeToggler } from "@/components/ui/animated-theme-toggler";
 import dynamic from 'next/dynamic';
 
 const MouseScaleGallery = dynamic(() => import("@/components/g3/MouseScaleGallery"));
 
-export default async function ProjectsPage({
-  searchParams,
-}: {
-  searchParams: Promise<{ category?: string }>;
-}) {
-  const { category } = await searchParams;
+export default async function ProjectsPage() {
   const allProjects = await getProjects();
-  const dynamicCategories = Array.from(new Set([...G3_CATEGORIES, ...allProjects.map(p => p.category)]));
   
-  const validCategory = category && dynamicCategories.includes(category) ? category : undefined;
-  const filteredProjects = validCategory ? allProjects.filter(p => p.category === validCategory) : allProjects;
-
-  const counts: Record<string, number> = {};
-  for (const c of dynamicCategories) counts[c] = allProjects.filter((p) => p.category === c).length;
+  // Extract all images from all projects
+  const allImages = allProjects.flatMap(project => {
+    const images = [];
+    if (project.cover) {
+      images.push({ ...project.cover, projectTitle: project.title });
+    }
+    if (project.gallery) {
+      project.gallery.forEach((img: any) => {
+        images.push({ ...img, projectTitle: project.title });
+      });
+    }
+    return images;
+  });
 
   return (
     <div className="bg-background min-h-screen pt-32 pb-24 transition-colors duration-300 relative">
@@ -57,22 +56,14 @@ export default async function ProjectsPage({
               </p>
             </Reveal>
           </div>
-          
-          <Reveal delay={0.2}>
-            <Suspense fallback={null}>
-              <CategoryFilter counts={counts} />
-            </Suspense>
-          </Reveal>
         </div>
 
         {/* PROJECTS GRID */}
-        {!filteredProjects.length ? (
+        {!allImages.length ? (
           <Reveal delay={0.3}>
             <div className="py-32 text-center flex flex-col items-center">
               <p className="text-2xl font-light opacity-60 mb-6 text-foreground transition-colors duration-300">
-                {validCategory
-                  ? `No ${validCategory.toLowerCase()} projects published yet.`
-                  : "Projects are being added — check back shortly."}
+                Projects are being added — check back shortly.
               </p>
               <Link href="/" className="g3-link text-foreground transition-colors duration-300">
                 Return to Home <ChevronRight aria-hidden="true" className="w-4 h-4" />
@@ -81,7 +72,7 @@ export default async function ProjectsPage({
           </Reveal>
         ) : (
           <Reveal delay={0.4}>
-            <MouseScaleGallery projects={filteredProjects} />
+            <MouseScaleGallery images={allImages} />
           </Reveal>
         )}
 
