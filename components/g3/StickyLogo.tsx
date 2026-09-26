@@ -26,23 +26,23 @@ export default function StickyLogo() {
       className="sticky top-0 z-[41] w-full h-0 overflow-visible pointer-events-none"
       style={{ opacity, y }}
     >
+      {/* Decorative repeat of the hero logo (the page's h1), hidden until the
+          hero scrolls away, so it is neither preloaded nor announced. */}
       <div className="p-6 md:p-8 flex justify-start items-center w-full">
         <div className="relative pointer-events-auto w-[63px] md:w-[81px] aspect-[2/1]">
           <Image
             src="/G3 black.png"
-            alt="G3 Builders Logo"
+            alt=""
             fill
-            sizes="(max-width: 768px) 100vw, 33vw"
+            sizes="(max-width: 767px) 63px, 81px"
             className="object-contain dark:hidden"
-            priority
           />
           <Image
             src="/G3 white.png"
-            alt="G3 Builders Logo"
+            alt=""
             fill
-            sizes="(max-width: 768px) 100vw, 33vw"
+            sizes="(max-width: 767px) 63px, 81px"
             className="object-contain hidden dark:block"
-            priority
           />
         </div>
       </div>

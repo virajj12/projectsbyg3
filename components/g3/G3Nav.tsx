@@ -138,13 +138,27 @@ export default function G3Nav() {
             brightness={40}
             blur={12}
           >
-            <button
-              onClick={() => router.back()}
+            {/* A real link to the home page. Visitors who came from within the
+                site still go back in history as before; someone who landed
+                here from a search result goes to the home page instead of
+                being sent back out of the site. */}
+            <Link
+              href="/"
+              onClick={(e) => {
+                let fromThisSite = false;
+                try {
+                  fromThisSite = !!document.referrer && new URL(document.referrer).origin === window.location.origin;
+                } catch {}
+                if (fromThisSite && window.history.length > 1) {
+                  e.preventDefault();
+                  router.back();
+                }
+              }}
               className="flex items-center justify-center h-11 w-11 shrink-0 rounded-full bg-white/40 dark:bg-black/40 backdrop-blur-lg border border-black/10 dark:border-white/10 shadow-inner hover:bg-white/60 dark:hover:bg-black/60 transition-colors"
               aria-label="Go back"
             >
-              <ChevronLeft className="h-5 w-5 text-black dark:text-white" />
-            </button>
+              <ChevronLeft className="h-5 w-5 text-black dark:text-white" aria-hidden="true" />
+            </Link>
           </GlassSurface>
         </div>
       </motion.header>
@@ -231,12 +245,15 @@ export default function G3Nav() {
                   )}
                 </button>
 
-                <nav className="hidden items-center md:flex">
+                <nav aria-label="Main" className="hidden items-center md:flex">
                   {LINKS.map((l) => {
                     const isActive = activeHash === l.href;
                     return (
-                      <button
+                      <Link
                         key={l.href}
+                        href={`/${l.href}`}
+                        scroll={false}
+                        aria-current={isActive ? "location" : undefined}
                         onClick={(e) => handleLinkClick(e, l.href)}
                         className={`relative z-10 rounded-full px-5 py-2 text-sm transition-colors duration-300 cursor-pointer ${
                           isActive
@@ -252,7 +269,7 @@ export default function G3Nav() {
                           />
                         )}
                         {l.label}
-                      </button>
+                      </Link>
                     );
                   })}
                 </nav>
@@ -266,17 +283,19 @@ export default function G3Nav() {
           className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full md:hidden"
           style={{ background: "var(--g3-ink)", color: "var(--g3-black)" }}
         >
-          {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+          {open ? <X className="h-5 w-5" aria-hidden="true" /> : <Menu className="h-5 w-5" aria-hidden="true" />}
         </button>
 
         {/* Desktop keeps a direct CTA in the pill. */}
-        <button
+        <Link
+          href="/#contact"
+          scroll={false}
           onClick={(e) => handleLinkClick(e, "#contact")}
           className="hidden shrink-0 rounded-full px-5 py-2 text-sm font-semibold md:block cursor-pointer"
           style={{ background: "var(--g3-ink)", color: "var(--g3-black)" }}
         >
           Book a consultation
-        </button>
+        </Link>
           </div>
         </GlassSurface>
         </div>
@@ -307,7 +326,7 @@ export default function G3Nav() {
             className="fixed bottom-0 left-0 right-0 h-[75vh] z-[43] flex flex-col justify-start pt-12 px-8 md:hidden border-t border-black/10 dark:border-white/10 shadow-2xl rounded-t-3xl"
             style={{ background: "var(--g3-black)" }}
           >
-            <nav className="flex flex-col gap-4">
+            <nav aria-label="Main" className="flex flex-col gap-4">
               {LINKS.map((l, i) => (
                 <motion.div
                   key={l.href}
@@ -315,7 +334,9 @@ export default function G3Nav() {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.05 + i * 0.05, duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
                 >
-                  <button
+                  <Link
+                    href={`/${l.href}`}
+                    scroll={false}
                     onClick={(e) => handleLinkClick(e, l.href)}
                     className="block py-3 text-3xl font-semibold tracking-tight cursor-pointer text-left w-full"
                     style={{
@@ -327,7 +348,7 @@ export default function G3Nav() {
                     }}
                   >
                     {l.label}
-                  </button>
+                  </Link>
                 </motion.div>
               ))}
             </nav>

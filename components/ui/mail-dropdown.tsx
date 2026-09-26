@@ -27,9 +27,16 @@ export function MailDropdown({ email, children }: { email: string; children: Rea
 
   return (
     <div className="relative inline-block" ref={menuRef}>
-      <div onClick={() => setIsOpen(!isOpen)}>
+      {/* A button, not a clickable div, so it is focusable and announced. */}
+      <button
+        type="button"
+        onClick={() => setIsOpen(!isOpen)}
+        aria-expanded={isOpen}
+        aria-haspopup="true"
+        className="appearance-none bg-transparent p-0 text-inherit"
+      >
         {children}
-      </div>
+      </button>
 
       <AnimatePresence>
         {isOpen && (

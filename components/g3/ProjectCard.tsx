@@ -15,7 +15,17 @@ import Link from "next/link";
 import Image from "next/image";
 import type { G3Project } from "@/lib/g3-data";
 
-export default function ProjectCard({ project, priority = false }: { project: G3Project; priority?: boolean }) {
+export default function ProjectCard({
+  project,
+  priority = false,
+  headingLevel = "h3",
+}: {
+  project: G3Project;
+  priority?: boolean;
+  /** Keeps the outline valid: h4 when the card sits under an h3. */
+  headingLevel?: "h3" | "h4";
+}) {
+  const Heading = headingLevel;
   const ref = useRef<HTMLDivElement>(null);
   const reduced = useReducedMotion();
   
@@ -40,7 +50,7 @@ export default function ProjectCard({ project, priority = false }: { project: G3
               alt={project.cover.alt || project.title}
               fill
               sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-              priority={priority}
+              preload={priority}
               className="object-cover transition-transform duration-700 will-change-transform group-hover:scale-[1.04]"
             />
           </motion.div>
@@ -55,9 +65,9 @@ export default function ProjectCard({ project, priority = false }: { project: G3
         />
 
         <div className="absolute inset-x-0 bottom-0 p-5">
-          <h3 className="mt-1.5 text-xl font-semibold tracking-tight" style={{ fontFamily: "var(--g3-font-display)", color: "#f5f1ea" }}>
+          <Heading className="mt-1.5 text-xl font-semibold tracking-tight" style={{ fontFamily: "var(--g3-font-display)", color: "#f5f1ea" }}>
             {project.title}
-          </h3>
+          </Heading>
         </div>
       </div>
     </Link>

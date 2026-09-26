@@ -1,16 +1,12 @@
-export const runtime = 'edge';
-
 import type { Metadata } from "next";
-import Image from "next/image";
 import Link from "next/link";
-import { Suspense } from "react";
-import { ChevronRight, Mail, MapPin, Clock } from "lucide-react";
+import { ChevronRight, Mail, Clock } from "lucide-react";
 import {
   getProjects,
   getServices,
   getPageContent,
-  G3_CATEGORIES
 } from "@/lib/g3-data";
+import { SITE_NAME, SITE_DESCRIPTION, EMAIL, pageMetadata } from "@/lib/site";
 import Hero from "@/components/g3/Hero";
 import StickyLogo from "@/components/g3/StickyLogo";
 import ProjectCard from "@/components/g3/ProjectCard";
@@ -20,9 +16,8 @@ import dynamic from 'next/dynamic';
 
 const MasterSequence = dynamic(() => import("@/components/g3/MasterSequence"));
 const InquiryForm = dynamic(() => import("@/components/g3/InquiryForm"));
-import { Reveal, RevealLeft, RevealImage } from "@/components/g3/Reveal";
+import { Reveal, RevealImage } from "@/components/g3/Reveal";
 import { revealDelay } from "@/components/g3/motion";
-import { MaskedSection } from "@/components/g3/MaskedSection";
 import MaskText from "@/components/MaskText";
 import ScrollDrivenSlideIn from "@/components/g3/ScrollDrivenSlideIn";
 import { AnimatedThemeToggler } from "@/components/ui/animated-theme-toggler";
@@ -64,7 +59,14 @@ const FALLBACK_SERVICES = [
   }
 ];
 
-const EMAIL = "hey@verspektive.in";
+// The home page is the canonical "/" for every query-string variant (such as
+// the old ?category= filter), so those never compete with it in search.
+export const metadata: Metadata = pageMetadata({
+  title: SITE_NAME,
+  absoluteTitle: true,
+  description: SITE_DESCRIPTION,
+  path: "/",
+});
 
 function relatedCategory(title: string): string | null {
   const t = title.toLowerCase();
@@ -74,13 +76,9 @@ function relatedCategory(title: string): string | null {
   return null;
 }
 
-export default async function G3Home({
-  searchParams,
-}: {
-  searchParams: Promise<{ category?: string }>;
-}) {
-  const { category } = await searchParams;
-
+// No searchParams here, so the page is prerendered and served from the CDN.
+// The ?category= filter still works: MasterSequence applies it in the browser.
+export default async function G3Home() {
   const [
     allProjects,
     homePage,
@@ -93,14 +91,7 @@ export default async function G3Home({
     getServices()
   ]);
 
-  const dynamicCategories = Array.from(new Set([...G3_CATEGORIES, ...allProjects.map(p => p.category)]));
-  const validCategory = category && dynamicCategories.includes(category) ? category : undefined;
-  const filteredProjects = validCategory ? allProjects.filter(p => p.category === validCategory) : allProjects;
-
   const services = fromDbServices.length ? fromDbServices : FALLBACK_SERVICES;
-
-  const counts: Record<string, number> = {};
-  for (const c of dynamicCategories) counts[c] = allProjects.filter((p) => p.category === c).length;
 
   const headline = homePage.content.heroHeadline || "Interior Execution. Exterior Consultancy.";
   const tagline =
@@ -130,9 +121,9 @@ export default async function G3Home({
         <section id="services" className="relative w-full border-t border-[var(--g3-rule-faint)] !z-10 bg-[var(--g3-black)] g3-wood-surface">
           <div className="pb-24 pt-32 md:pt-40">
             <div className="mx-auto max-w-6xl px-6 flex flex-col items-center text-center">
-            <div className="mb-8 text-4xl md:text-6xl font-black tracking-tight uppercase text-[var(--g3-ink)]">
+            <h2 className="mb-8 text-4xl md:text-6xl font-black tracking-tight uppercase text-[var(--g3-ink)]">
               <MaskText text="What we do?" />
-            </div>
+            </h2>
             <div className="g3-display-lg max-w-4xl flex flex-col items-center text-center w-full" style={{ color: "var(--g3-ink)" }}>
               <div className="text-center w-full"><MaskText text="Two specialized services." className="justify-center" /></div>
               <div className="text-center w-full"><MaskText text="Focused expertise." className="justify-center" /></div>
@@ -168,9 +159,9 @@ export default async function G3Home({
                       <div className="g3-meta">
                         <MaskText text={String(i + 1).padStart(2, "0")} />
                       </div>
-                      <div className="g3-display-lg mt-3" style={{ color: "var(--g3-ink)" }}>
+                      <h3 className="g3-display-lg mt-3" style={{ color: "var(--g3-ink)" }}>
                         <MaskText text={s.title} />
-                      </div>
+                      </h3>
                     </ScrollDrivenSlideIn>
 
                     <ScrollDrivenSlideIn startOffset="-5vw">
@@ -191,7 +182,7 @@ export default async function G3Home({
                       <div className="grid gap-5 sm:grid-cols-3">
                         {related.map((p, j) => (
                           <RevealImage key={p.id} delay={revealDelay(j)}>
-                            <ProjectCard project={p} />
+                            <ProjectCard project={p} headingLevel="h4" />
                           </RevealImage>
                         ))}
                       </div>
@@ -205,13 +196,13 @@ export default async function G3Home({
       </section>
 
       {/* MASTER SEQUENCE: PORTFOLIO -> IMMERSIVE IMAGE -> HOW IT WORKS */}
-      <MasterSequence projects={filteredProjects}>
+      <MasterSequence projects={allProjects}>
         <div className="text-center flex flex-col items-center">
           {/* <span className="g3-meta mb-3 !text-white">Portfolio</span> */}
           <Link href="/projects" className="group">
-            <h1 className="g3-display-xl transition-opacity hover:opacity-70 text-white">
+            <h2 className="g3-display-xl transition-opacity hover:opacity-70 text-white">
               Projects
-            </h1>
+            </h2>
           </Link>
         </div>
       </MasterSequence>
@@ -240,9 +231,9 @@ export default async function G3Home({
         <div className="py-20 text-center">
           <div className="mx-auto max-w-6xl px-6">
             <Reveal>
-              <h1 className="g3-display-xl mx-auto max-w-3xl" style={{ color: "var(--g3-ink)" }}>
+              <h2 className="g3-display-xl mx-auto max-w-3xl" style={{ color: "var(--g3-ink)" }}>
                 Small enough to care. Equipped to deliver.
-              </h1>
+              </h2>
             </Reveal>
             <Reveal delay={0.1}>
               <p className="g3-body mt-8 mx-auto max-w-2xl text-center">{story}</p>
@@ -253,20 +244,20 @@ export default async function G3Home({
 
           <section className="mx-auto max-w-6xl px-6 py-24">
             <Reveal>
-              <h2 className="g3-display-lg mb-12" style={{ color: "var(--g3-ink)" }}>
+              <h3 className="g3-display-lg mb-12" style={{ color: "var(--g3-ink)" }}>
                 Three things we don&rsquo;t compromise on
-              </h2>
+              </h3>
             </Reveal>
 
             <div className="grid gap-10 md:grid-cols-3">
               {PHILOSOPHY.map((p, i) => (
                 <Reveal key={p.title} delay={revealDelay(i)}>
-                  <h3
+                  <h4
                     className="mb-3 text-xl font-semibold tracking-tight"
                     style={{ fontFamily: "var(--g3-font-display)", color: "var(--g3-ink)" }}
                   >
                     {p.title}
-                  </h3>
+                  </h4>
                   <p className="g3-body">{p.body}</p>
                 </Reveal>
               ))}
@@ -282,9 +273,9 @@ export default async function G3Home({
         <div className="pb-24 pt-32 md:pt-40">
           <div className="mx-auto max-w-6xl px-6">
             <Reveal>
-              <h1 className="g3-display-xl max-w-3xl" style={{ color: "var(--g3-ink)" }}>
+              <h2 className="g3-display-xl max-w-3xl" style={{ color: "var(--g3-ink)" }}>
                 Tell us about your project.
-              </h1>
+              </h2>
             </Reveal>
             <Reveal delay={0.1}>
               <p className="g3-body mt-6 max-w-xl">

@@ -1,5 +1,3 @@
-export const runtime = 'edge';
-
 /**
  * Project detail (spec 4.3): full-bleed hero, metadata block, narrative,
  * gallery, prev/next navigation.
@@ -13,7 +11,43 @@ import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import { getProjectBySlug } from "@/lib/g3-data";
+import { getProjectBySlug, getProjects } from "@/lib/g3-data";
+import {
+  SITE_NAME,
+  ORGANIZATION_ID,
+  WEBSITE_ID,
+  absoluteUrl,
+  breadcrumbList,
+  jsonLd,
+  pageMetadata,
+  projectPlace,
+} from "@/lib/site";
+import type { G3Project } from "@/lib/g3-constants";
+
+// Every project page is prerendered at build time and served from the CDN.
+// A slug that is not in the content is a real 404, not a rendered page.
+export const dynamicParams = false;
+
+export async function generateStaticParams() {
+  const projects = await getProjects();
+  return projects.map((p) => ({ slug: p.slug }));
+}
+
+/** "Vintage Library" from "Vintage Library | Bajagoli". */
+function projectName(title: string): string {
+  return title.split("|")[0].trim() || title;
+}
+
+/**
+ * Unique per project and built only from its own content: the summary, then
+ * what kind of project it is and where, from the category and the place in
+ * the title.
+ */
+function projectDescription(project: G3Project): string {
+  const place = projectPlace(project.title);
+  const kind = `${project.category === "Concept" ? "Concept" : project.category} project${place ? ` in ${place}` : ""} by ${SITE_NAME}.`;
+  return project.summary ? `${project.summary} ${kind}` : kind;
+}
 import { Reveal, RevealImage } from "@/components/g3/Reveal";
 import { revealDelay } from "@/components/g3/motion";
 
@@ -24,18 +58,15 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { slug } = await params;
   const data = await getProjectBySlug(slug);
-  if (!data) return { title: "Project not found" };
+  if (!data) return { title: "Project not found", robots: { index: false } };
 
   const { project } = data;
-  return {
+  return pageMetadata({
     title: project.title,
-    description: project.summary || `${project.category} project by G3 Builders & Architects.`,
-    openGraph: {
-      title: project.title,
-      description: project.summary || undefined,
-      images: project.cover ? [{ url: project.cover.url, alt: project.cover.alt }] : undefined,
-    },
-  };
+    description: projectDescription(project),
+    path: `/projects/${project.slug}`,
+    images: project.cover ? [{ url: project.cover.url, alt: project.cover.alt || project.title }] : undefined,
+  });
 }
 
 export default async function ProjectDetail({ params }: { params: Promise<{ slug: string }> }) {
@@ -47,20 +78,40 @@ export default async function ProjectDetail({ params }: { params: Promise<{ slug
 
   const allGalleryImages = project.cover ? [project.cover, ...gallery] : gallery;
 
-  const jsonLd = {
+  // The place comes from the title ("Residence | Mantradi"); the content's
+  // `location` field holds placeholders like "Confidential", so it is not
+  // published as a place. Image URLs are absolute, as structured data needs.
+  const url = absoluteUrl(`/projects/${project.slug}`);
+  const place = projectPlace(project.title);
+  const images = allGalleryImages.filter((g) => g.type !== "video").map((g) => absoluteUrl(g.url));
+  const structuredData = {
     "@context": "https://schema.org",
-    "@type": "CreativeWork",
-    name: project.title,
-    description: project.summary || undefined,
-    image: project.cover?.url,
-    dateCreated: project.year ? String(project.year) : undefined,
-    creator: { "@type": "Organization", name: "G3 Builders & Architects" },
-    locationCreated: project.location ? { "@type": "Place", name: project.location } : undefined,
+    "@graph": [
+      {
+        "@type": "CreativeWork",
+        "@id": `${url}#project`,
+        url,
+        name: project.title,
+        alternateName: projectName(project.title) !== project.title ? projectName(project.title) : undefined,
+        description: project.summary || undefined,
+        genre: project.category,
+        image: images.length ? images : undefined,
+        dateCreated: project.year ? String(project.year) : undefined,
+        creator: { "@id": ORGANIZATION_ID },
+        locationCreated: place ? { "@type": "Place", name: place } : undefined,
+        isPartOf: { "@id": WEBSITE_ID },
+      },
+      breadcrumbList([
+        { name: "Home", path: "/" },
+        { name: "Projects", path: "/projects" },
+        { name: project.title, path: `/projects/${project.slug}` },
+      ]),
+    ],
   };
 
   return (
     <article className="relative bg-background">
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLd(structuredData) }} />
 
       <div className="absolute top-0 left-0 right-0 p-6 md:p-8 flex justify-between items-center z-50 pointer-events-none">
         <Link 
@@ -68,7 +119,7 @@ export default async function ProjectDetail({ params }: { params: Promise<{ slug
           className="pointer-events-auto bg-black/20 hover:bg-black/40 backdrop-blur-md rounded-full p-2 text-white transition-all flex items-center justify-center"
           aria-label="Back to Projects"
         >
-          <ChevronLeft className="w-6 h-6 md:w-8 md:h-8" />
+          <ChevronLeft className="w-6 h-6 md:w-8 md:h-8" aria-hidden="true" />
         </Link>
       </div>
 
@@ -80,7 +131,7 @@ export default async function ProjectDetail({ params }: { params: Promise<{ slug
               src={project.cover.url}
               alt={project.cover.alt || project.title}
               fill
-              priority
+              preload
               sizes="100vw"
               className="object-cover"
             />
@@ -94,9 +145,8 @@ export default async function ProjectDetail({ params }: { params: Promise<{ slug
         </div>
 
         <div className="relative mx-auto w-full max-w-5xl px-6 pb-16 pt-32">
-          <Reveal>
-            <h1 className="g3-display-lg mt-3" style={{ color: "var(--g3-ink)" }}>{project.title}</h1>
-          </Reveal>
+          {/* Above the fold: CSS entrance, so the heading paints before JS. */}
+          <h1 className="g3-enter g3-display-lg mt-3" style={{ color: "var(--g3-ink)" }}>{project.title}</h1>
         </div>
       </section>
 
@@ -159,12 +209,12 @@ export default async function ProjectDetail({ params }: { params: Promise<{ slug
       )}
 
       {/* Prev / next */}
-      <nav className="border-t" style={{ borderColor: "var(--g3-rule-faint)" }}>
+      <nav aria-label="More projects" className="border-t" style={{ borderColor: "var(--g3-rule-faint)" }}>
         <div className="mx-auto flex max-w-5xl items-stretch justify-between gap-4 px-6 py-10">
           {prev ? (
             <Link href={`/projects/${prev.slug}`} className="flex-1">
               <span className="g3-meta flex items-center gap-1">
-                <ChevronLeft className="h-3 w-3" /> Previous
+                <ChevronLeft className="h-3 w-3" aria-hidden="true" /> Previous
               </span>
               <p className="mt-1.5 font-medium" style={{ color: "var(--g3-ink)" }}>{prev.title}</p>
             </Link>
@@ -175,7 +225,7 @@ export default async function ProjectDetail({ params }: { params: Promise<{ slug
           {next ? (
             <Link href={`/projects/${next.slug}`} className="flex-1 text-right">
               <span className="g3-meta flex items-center justify-end gap-1">
-                Next <ChevronRight className="h-3 w-3" />
+                Next <ChevronRight className="h-3 w-3" aria-hidden="true" />
               </span>
               <p className="mt-1.5 font-medium" style={{ color: "var(--g3-ink)" }}>{next.title}</p>
             </Link>

@@ -4,8 +4,24 @@ import Link from "next/link";
 import { MailDropdown } from "@/components/ui/mail-dropdown";
 import { useRouter } from "next/navigation";
 
+// Home-page sections, as real links so crawlers and keyboard users can follow
+// them. On the home page a click scrolls smoothly as before; elsewhere it goes
+// to the home page.
+const SECTION_LINKS = [
+  { id: "services", label: "Services" },
+  { id: "process", label: "Process" },
+  { id: "about", label: "About" },
+];
+
 export default function G3Footer() {
   const router = useRouter();
+
+  const goToSection = (e: React.MouseEvent<HTMLAnchorElement>, id: string) => {
+    e.preventDefault();
+    const el = document.getElementById(id);
+    if (el) el.scrollIntoView({ behavior: "smooth" });
+    else router.push("/");
+  };
   return (
     <footer id="g3-footer" className="relative overflow-hidden transition-colors duration-300 border-t border-black/10 dark:border-white/10">
       
@@ -32,13 +48,15 @@ export default function G3Footer() {
 
         {/* Navigation Pushed to Bottom */}
         <div className="w-full px-2 lg:px-4 pb-4 md:pb-6">
-          <div className="flex flex-col md:flex-row md:justify-between items-center gap-6 font-medium text-lg">
+          <nav aria-label="Footer" className="flex flex-col md:flex-row md:justify-between items-center gap-6 font-medium text-lg">
             <Link href="/" className="hover:text-muted-foreground transition-colors">Home</Link>
             <Link href="/projects" className="hover:text-muted-foreground transition-colors">Projects</Link>
-            <button onClick={() => document.getElementById('services') ? document.getElementById('services')!.scrollIntoView({ behavior: 'smooth' }) : router.push("/")} className="hover:text-muted-foreground transition-colors">Services</button>
-            <button onClick={() => document.getElementById('process') ? document.getElementById('process')!.scrollIntoView({ behavior: 'smooth' }) : router.push("/")} className="hover:text-muted-foreground transition-colors">Process</button>
-            <button onClick={() => document.getElementById('about') ? document.getElementById('about')!.scrollIntoView({ behavior: 'smooth' }) : router.push("/")} className="hover:text-muted-foreground transition-colors">About</button>
-          </div>
+            {SECTION_LINKS.map((l) => (
+              <a key={l.id} href={`/#${l.id}`} onClick={(e) => goToSection(e, l.id)} className="hover:text-muted-foreground transition-colors">
+                {l.label}
+              </a>
+            ))}
+          </nav>
         </div>
         
         {/* Mobile Bottom Row (Inside White Area) */}
@@ -56,7 +74,9 @@ export default function G3Footer() {
         <div className="w-full px-0 flex flex-col">
           
           {/* MASSIVE LOGO - using Oswald, all one line */}
-          <div className="w-full flex justify-center items-center pointer-events-none">
+          {/* Decorative wordmark: the name is already in the copyright line,
+              so assistive tech skips the repeat. */}
+          <div aria-hidden="true" className="w-full flex justify-center items-center pointer-events-none">
             <div 
               className="w-full text-center uppercase tracking-tighter leading-none text-white"
               style={{ 
