@@ -1,9 +1,10 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useRef, useState, useSyncExternalStore } from "react";
 import Image from "next/image";
 import { motion, useScroll, useTransform, useReducedMotion, useMotionValueEvent, useMotionValue, useSpring, MotionValue } from "framer-motion";
 import type { G3Project } from "@/lib/g3-data";
+import { G3_CATEGORIES } from "@/lib/g3-constants";
 import ProjectCard from "./ProjectCard";
 import { PROCESS_STAGES } from "./ProcessTimeline";
 import MaskText from "@/components/MaskText";
@@ -48,7 +49,7 @@ const FALLBACK_IMAGES = [
   "https://images.unsplash.com/photo-1600573472591-ee6b68d14c68?auto=format&fit=crop&w=800&q=80",
 ];
 
-function ParallaxImage({ src, pos, progress, index, mouseX }: { src: string; pos: Position; progress: any; index: number; mouseX?: MotionValue<number> }) {
+function ParallaxImage({ src, alt, pos, progress, index, mouseX }: { src: string; alt: string; pos: Position; progress: any; index: number; mouseX?: MotionValue<number> }) {
   // Phase 1 is [0, 0.25] of the global MasterSequence scroll
   const y = useTransform(progress, [0, 0.25], pos.yRange);
 
@@ -65,7 +66,8 @@ function ParallaxImage({ src, pos, progress, index, mouseX }: { src: string; pos
         x,
       }}
     >
-      <Image src={src} alt="Architecture portfolio" fill sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" className="object-cover" />
+      {/* Sized to the largest slot: 45vw on phones, 25vw on desktop. */}
+      <Image src={src} alt={alt} fill sizes="(max-width: 767px) 45vw, 25vw" className="object-cover" />
     </motion.div>
   );
 }
@@ -77,9 +79,9 @@ function KineticStageTitle({ title, isActive }: { title: string, isActive: boole
       animate={{ opacity: isActive ? 1 : 0.3 }}
       transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
     >
-      <span className="text-[55px] md:text-[100px] font-semibold tracking-tight leading-none block">
+      <h3 className="text-[55px] md:text-[100px] font-semibold tracking-tight leading-none block">
         {title}
-      </span>
+      </h3>
     </motion.div>
   );
 }
@@ -91,9 +93,12 @@ function KineticStageContent({ s, isActive }: { s: any, isActive: boolean }) {
       animate={{ opacity: isActive ? 1 : 0 }}
       transition={{ duration: 0.6 }}
     >
-      <div className="text-lg md:text-2xl font-light leading-snug mb-4 md:mb-6 opacity-90 min-h-[80px]">
-        {isActive && <MaskText text={s.what} />}
-      </div>
+      {/* Every stage's text is in the HTML; the inactive ones are hidden by
+          the wrapper's opacity, as before. Only the active one gets the
+          MaskText entrance, which is keyed so it replays on each activation. */}
+      <p className="text-lg md:text-2xl font-light leading-snug mb-4 md:mb-6 opacity-90 min-h-[80px]">
+        {isActive ? <MaskText key="active" text={s.what} /> : s.what}
+      </p>
     </motion.div>
   );
 }
@@ -109,6 +114,9 @@ function KineticStageNumber({ index, isActive }: { index: number, isActive: bool
     </motion.span>
   );
 }
+
+// The query string only changes on navigation, which remounts the page.
+const noopSubscribe = () => () => {};
 
 export default function MasterSequence({ projects, children }: MasterSequenceProps) {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -165,7 +173,23 @@ export default function MasterSequence({ projects, children }: MasterSequencePro
 
   const [activeIndex, setActiveIndex] = useState(0);
 
-  const covers = projects.map((p) => p.cover?.url).filter((u): u is string => Boolean(u));
+  // ?category= filter, applied in the browser so the home page itself can be
+  // prerendered. Same rule as before: the category must be a known one.
+  // The server snapshot is "" (no filter), so the prerendered HTML and the
+  // first client render match; React then re-renders with the real query.
+  const search = useSyncExternalStore(
+    noopSubscribe,
+    () => window.location.search,
+    () => "",
+  );
+  const requested = new URLSearchParams(search).get("category");
+  const known = new Set<string>([...G3_CATEGORIES, ...projects.map((p) => p.category)]);
+  const category = requested && known.has(requested) ? requested : null;
+  const shown = category ? projects.filter((p) => p.category === category) : projects;
+
+  const covers = shown
+    .filter((p) => p.cover?.url)
+    .map((p) => ({ url: p.cover!.url, alt: p.cover!.alt || p.title }));
 
   useMotionValueEvent(scrollYProgress, "change", (latest) => {
     if (latest < 0.60) {
@@ -189,7 +213,7 @@ export default function MasterSequence({ projects, children }: MasterSequencePro
         <div className="mx-auto max-w-6xl px-6 py-24">
           <div className="mb-12">{children}</div>
           <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-            {projects.map((p) => (
+            {shown.map((p) => (
               <ProjectCard key={p.id} project={p} />
             ))}
           </div>
@@ -264,7 +288,6 @@ export default function MasterSequence({ projects, children }: MasterSequencePro
               fill
               sizes="100vw"
               className="object-cover"
-              priority
             />
           </motion.div>
           <div
@@ -282,10 +305,13 @@ export default function MasterSequence({ projects, children }: MasterSequencePro
             // category filter leaves fewer than eight. Stock photos are only a
             // last resort for a portfolio with no covers at all, so other
             // people's buildings never appear as G3 work.
-            const src = covers.length ? covers[i % covers.length] : FALLBACK_IMAGES[i % FALLBACK_IMAGES.length];
+            const cover = covers.length ? covers[i % covers.length] : null;
+            const src = cover ? cover.url : FALLBACK_IMAGES[i % FALLBACK_IMAGES.length];
+            // Stock fallbacks are not G3 work, so they are marked decorative.
+            const alt = cover ? cover.alt : "";
             return (
               <div key={i} className="pointer-events-auto">
-                <ParallaxImage src={src} pos={pos} progress={scrollYProgress} index={i} mouseX={smoothMouseX} />
+                <ParallaxImage src={src} alt={alt} pos={pos} progress={scrollYProgress} index={i} mouseX={smoothMouseX} />
               </div>
             );
           })}
@@ -312,6 +338,8 @@ export default function MasterSequence({ projects, children }: MasterSequencePro
           <div className="absolute inset-0 opacity-[0.03] pointer-events-none z-10" style={{ backgroundImage: 'linear-gradient(#ffffff 1px, transparent 1px), linear-gradient(90deg, #ffffff 1px, transparent 1px)', backgroundSize: '100px 100px' }} />
 
           <div className="relative w-full h-[100dvh] md:h-[500px] z-20 -translate-y-8 md:-translate-y-24">
+
+            <h2 className="sr-only">How we work</h2>
 
             {/* TOP HALF: Titles (Above the line) */}
             <div className="absolute bottom-[65%] md:bottom-[50%] left-0 w-full pb-4 md:pb-8">

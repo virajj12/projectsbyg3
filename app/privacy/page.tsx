@@ -1,17 +1,29 @@
-import Link from "next/link";
-import { Metadata } from "next";
+import type { Metadata } from "next";
+import { SITE_NAME, breadcrumbList, jsonLd, pageMetadata } from "@/lib/site";
 
-export const metadata: Metadata = {
-  title: "Privacy Policy | G3 Builders & Architects",
-  description: "Privacy Policy and DPDP-Aligned information for G3 Builders & Architects.",
+// The layout's title template already appends the site name, so the page
+// title is just the page's own name (it used to render the name twice).
+export const metadata: Metadata = pageMetadata({
+  title: "Privacy Policy",
+  description: `How ${SITE_NAME} collects, uses and retains the details you send through the enquiry form, and how to request access, correction or erasure.`,
+  path: "/privacy",
+});
+
+const BREADCRUMBS = {
+  "@context": "https://schema.org",
+  ...breadcrumbList([
+    { name: "Home", path: "/" },
+    { name: "Privacy Policy", path: "/privacy" },
+  ]),
 };
 
 export default function PrivacyPolicy() {
   return (
-    <main className="flex flex-col min-h-screen bg-[var(--g3-black)] pt-32 pb-24 transition-colors duration-300">
-      <div className="container mx-auto px-6 max-w-[800px]">
+    <div className="flex flex-col min-h-screen bg-[var(--g3-black)] pt-32 pb-24 transition-colors duration-300">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLd(BREADCRUMBS) }} />
+      <article className="container mx-auto px-6 max-w-[800px]">
         <h1 className="g3-display-xl mb-4 text-[var(--g3-ink)]">Privacy Policy</h1>
-        <p className="mb-12 font-medium" style={{ color: "var(--g3-ink-faint)" }}>Last updated: September 24, 2026</p>
+        <p className="mb-12 font-medium" style={{ color: "var(--g3-ink-faint)" }}>Last updated: <time dateTime="2026-09-24">September 24, 2026</time></p>
 
         <div className="space-y-12 g3-body leading-relaxed text-[var(--g3-ink)]">
           <section>
@@ -84,9 +96,9 @@ export default function PrivacyPolicy() {
               If you have any questions, privacy requests, or grievances regarding how your information is handled, please contact us at:
             </p>
             <p className="mt-4 font-medium">
-              <Link href="mailto:hey@verspektive.in" className="underline underline-offset-4 hover:opacity-70 transition-opacity" style={{ color: "var(--g3-ink)" }}>
+              <a href="mailto:hey@verspektive.in" className="underline underline-offset-4 hover:opacity-70 transition-opacity" style={{ color: "var(--g3-ink)" }}>
                 hey@verspektive.in
-              </Link>
+              </a>
             </p>
           </section>
 
@@ -97,7 +109,7 @@ export default function PrivacyPolicy() {
             </p>
           </section>
         </div>
-      </div>
-    </main>
+      </article>
+    </div>
   );
 }

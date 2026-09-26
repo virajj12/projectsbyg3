@@ -23,10 +23,12 @@ export default function MaskText({ text, className }: MaskTextProps) {
 
   const words = text.split(" ");
 
+  // Spans throughout (their classes set the display), so MaskText is valid
+  // inside headings and paragraphs, which only allow phrasing content.
   return (
-    <div ref={ref} className={clsx("flex flex-wrap gap-x-[0.25em]", className)}>
+    <span ref={ref} className={clsx("flex flex-wrap gap-x-[0.25em]", className)}>
       {words.map((word, index) => (
-        <div key={index} className="overflow-hidden inline-flex py-[0.1em]">
+        <span key={index} className="overflow-hidden inline-flex py-[0.1em]">
           <motion.span
             custom={index}
             variants={animation}
@@ -36,8 +38,12 @@ export default function MaskText({ text, className }: MaskTextProps) {
           >
             {word}
           </motion.span>
-        </div>
+          {/* A real space between words, so the text reads as "What we do?"
+              and not "Whatwedo?" to crawlers and in copied text. The flex gap
+              already provides the visual spacing; flex drops this node. */}
+          {index < words.length - 1 ? " " : null}
+        </span>
       ))}
-    </div>
+    </span>
   );
 }
