@@ -18,9 +18,11 @@ export default function DevConsoleEasterEgg() {
         );
         
         console.log(
-          "%cIf you like what you see, maybe we should build something together. 🚀\n%c👉 https://www.projectsbyg3.com",
+          "%cIf you like what you see, maybe we should build something together. 🚀\n%c👉 https://www.projectsbyg3.com\n\n%c💻 Engineered by VerspeKtive Tech\n%c👉 https://verspektive.in/tech",
           "font-size: 14px; font-weight: bold; background: linear-gradient(to right, #3b82f6, #9333ea); color: white; padding: 6px 10px; border-radius: 6px; margin-top: 10px;",
-          "font-size: 14px; font-weight: bold; color: #3b82f6; margin-top: 8px; display: block;"
+          "font-size: 14px; font-weight: bold; color: #3b82f6; margin-top: 8px; display: block;",
+          "font-size: 12px; font-weight: bold; color: #a1a1aa; margin-top: 16px; display: block;",
+          "font-size: 12px; font-weight: bold; color: #10b981; margin-top: 4px; display: block;"
         );
       }, 500);
     }
