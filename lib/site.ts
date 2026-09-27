@@ -13,23 +13,18 @@ import type { Metadata } from "next";
 /**
  * Canonical origin, without a trailing slash.
  *
- * Order: an explicit NEXT_PUBLIC_SITE_URL (set this when a custom domain goes
- * live), then Vercel's production domain, which Vercel exposes at build and
- * run time and which already prefers a custom domain once one is attached,
- * then the current production address. Preview deployments therefore still
- * point their canonicals at production rather than at themselves.
+ * Set to the primary production domain.
  */
 function resolveSiteUrl(): string {
   const explicit = process.env.NEXT_PUBLIC_SITE_URL;
-  const vercel = process.env.VERCEL_PROJECT_PRODUCTION_URL;
-  const raw = explicit || (vercel ? `https://${vercel}` : "https://projectsbyg3.vercel.app");
+  const raw = explicit || "https://www.projectsbyg3.com";
   return raw.replace(/\/+$/, "");
 }
 
 export const SITE_URL = resolveSiteUrl();
 export const SITE_NAME = "G3 Builders & Architects";
 export const SITE_DESCRIPTION =
-  "Exterior design consultancy, interior planning and execution delivered end to end. Residential and commercial projects across coastal Karnataka.";
+  "Top architects and interior designers in Moodbidri delivering end-to-end residential and commercial projects. We provide expert exterior design, planning, and execution across Mangalore, Karkala, Udupi, Dakshina Kannada, Karnataka, and the wider Tulunadu region.";
 export const SITE_LOCALE = "en_IN";
 export const EMAIL = "hey@verspektive.in";
 export const INSTAGRAM_URL = "https://www.instagram.com/projects_by_g3";

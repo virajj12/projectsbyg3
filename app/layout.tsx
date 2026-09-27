@@ -127,7 +127,16 @@ const STRUCTURED_DATA = {
         addressRegion: "Karnataka",
         addressCountry: "IN",
       },
-      areaServed: { "@type": "Place", name: "Coastal Karnataka" },
+      areaServed: [
+        { "@type": "Place", name: "Mangalore" },
+        { "@type": "Place", name: "Moodbidri" },
+        { "@type": "Place", name: "Karkala" },
+        { "@type": "Place", name: "Udupi" },
+        { "@type": "Place", name: "Tulunadu" },
+        { "@type": "Place", name: "Dakshina Kannada" },
+        { "@type": "Place", name: "Karnataka" },
+        { "@type": "Place", name: "Coastal Karnataka" },
+      ],
       openingHoursSpecification: {
         "@type": "OpeningHoursSpecification",
         dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
