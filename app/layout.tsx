@@ -11,6 +11,7 @@ import G3Nav from "@/components/g3/G3Nav";
 import G3Footer from "@/components/g3/G3Footer";
 import StickyMobileCTA from "@/components/g3/StickyMobileCTA";
 import SmoothScroll from "@/components/g3/SmoothScroll";
+import DevConsoleEasterEgg from "@/components/dev-console-easter-egg";
 import servicesData from "@/content/services.json";
 import {
   SITE_URL,
@@ -197,6 +198,7 @@ export default function RootLayout({
             </SmoothScroll>
           </GlobalLoaderProvider>
         </ThemeProvider>
+        <DevConsoleEasterEgg />
       </body>
     </html>
   );
